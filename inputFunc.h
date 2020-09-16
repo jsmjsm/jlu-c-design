@@ -16,4 +16,11 @@ int *inputWork();
 // 输入金额
 int inputPrice();
 
+// 输入数量
+int inputAmount();
+
+// 输入Int
+// TODO：需要用它来做异常检查
+int inputInt(char *title);
+
 #endif

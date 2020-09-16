@@ -95,3 +95,14 @@ int inputPrice()
     printf("输入成功，金额: %d\n", price);
     return price;
 }
+
+// 输入数量
+int inputAmount()
+{
+    int amount = 0;
+    printf("请输入数量\n");
+    scanf("%d", &amount);
+    fflush(stdin);
+    printf("输入成功，数量: %d\n", amount);
+    return amount;
+}

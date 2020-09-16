@@ -43,11 +43,13 @@ int main()
     struct used_Medicine *u_m1, *u_m2, *u_m3, *u_m4, *u_m5, *u_m6;
     m_list = (struct medicine_list *)malloc(sizeof(struct medicine_list));
     m_list->head = NULL;
+
     add_to_medicine_list(m_list, "双黄连", 3000);
     add_to_medicine_list(m_list, "板蓝根", 2500);
     add_to_medicine_list(m_list, "XX药片", 8000);
     add_to_medicine_list(m_list, "XY药片", 10000);
     add_to_medicine_list(m_list, "XZ药片", 15000);
+
     m1 = search_medicine(m_list, "双黄连");
     u_m1 = create_use_m(NULL, m1, 2);
     m1 = search_medicine(m_list, "板蓝根");
@@ -67,6 +69,7 @@ int main()
     live3 = create_live_hospital(8, 3, 12, 0, 8, 8, 12, 0);
 
     struct treatment t1, t2, t3;
+
     t1 = create_treatment(c1, u_m1, &live1);
     t2 = create_treatment(c3, u_m3, &live2);
     t3 = create_treatment(c5, u_m5, &live3);

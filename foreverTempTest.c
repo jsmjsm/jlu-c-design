@@ -9,6 +9,16 @@ int main(int argc, char const *argv[])
 {
     /* code */
     printf("Test Begin!\n");
-    struct body_Check *c1 = inter_create_check();
+    struct medicine_list *list = inter_create_medicine_list();
+    struct medicine *temp = list->head;
+    while (temp != NULL)
+    {
+        printf("%s\n", temp->name);
+        temp = temp->next;
+    }
+
+    inter_search_medicine(list);
+    inter_create_used_medicine(list);
+
     return 0;
 }
