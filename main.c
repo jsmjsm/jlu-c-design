@@ -10,6 +10,6 @@ int main(int argc, char const *argv[])
 {
     mainControl();
 
-    printf("Hello World\n");
+    printf("=====END===END===END====\n");
     return 0;
 }
