@@ -56,7 +56,7 @@ struct body_Check *inter_create_check()
     // Input name
     strcpy(temp_name, inputCharWithTitle("检查项目名称"));
     // Input price
-    temp_price = inputPrice();
+    temp_price = inputPrice(1);
 
     // 链表形式 插入
     struct body_Check *check_head, *node, *end; // return the head, use the head can visit the whole list
@@ -73,16 +73,19 @@ struct body_Check *inter_create_check()
     while (isNext == 1)
     {
         // check isNext
+        isNext = isNextInput("是否还有其他检查项目，是则输入 1，否则输入 0");
+        /*
         printf("是否还有其他检查项目，是则输入 1，否则输入 0\n");
         scanf("%d", &isNext);
         fflush(stdin);
+
         while (isNext != 1 && isNext != 0)
         {
             printf("输入有误，请重试！\n");
             scanf("%d", &isNext);
             fflush(stdin);
         }
-
+        */
         // next
         if (isNext == 0)
         {
@@ -106,7 +109,7 @@ struct body_Check *inter_create_check()
             // Input name
             strcpy(temp_name, inputCharWithTitle("检查项目名称"));
             // Input price
-            temp_price = inputPrice();
+            temp_price = inputPrice(1);
             // insert new
             node = (struct body_Check *)malloc(sizeof(struct body_Check));
             strcpy((node->name), temp_name);
@@ -137,13 +140,15 @@ struct medicine_list *inter_create_medicine_list()
 
     // create the list
     strcpy(temp_name, inputCharWithTitle("药品名称"));
-    temp_price = inputPrice();
+    temp_price = inputPrice(1);
     add_to_medicine_list(m_list, temp_name, temp_price);
 
     // loop
     while (isNext == 1)
     {
         // check isNext
+        isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
+        /*
         printf("是否还有其他药品，是则输入 1，否则输入 0\n");
         scanf("%d", &isNext);
         fflush(stdin);
@@ -153,6 +158,7 @@ struct medicine_list *inter_create_medicine_list()
             scanf("%d", &isNext);
             fflush(stdin);
         }
+        */
 
         if (isNext == 0) // 没有其他药物
         {
@@ -161,7 +167,7 @@ struct medicine_list *inter_create_medicine_list()
         else if (isNext == 1) // 有其他药物
         {
             strcpy(temp_name, inputCharWithTitle("药品名称"));
-            temp_price = inputPrice();
+            temp_price = inputPrice(1);
             add_to_medicine_list(m_list, temp_name, temp_price);
         }
         else
@@ -213,6 +219,8 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
         {
             // 找不到药物的处理
             // 是否继续找
+            isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
+            /*
             printf("是否还有其他药品，是则输入 1，否则输入 0\n");
             scanf("%d", &isNext);
             isNext = isNext * 1;
@@ -223,6 +231,7 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
                 scanf("%d", &isNext);
                 fflush(stdin);
             }
+            */
         }
         else
         {
@@ -233,6 +242,8 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
             end->amount = temp_amount;
             end->next = NULL;
             // next？
+            isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
+            /*
             printf("是否还有其他药品，是则输入 1，否则输入 0\n");
             scanf("%d", &isNext);
             fflush(stdin);
@@ -242,6 +253,7 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
                 scanf("%d", &isNext);
                 fflush(stdin);
             }
+            */
         }
     }
     return u_medicine_head;
@@ -269,6 +281,7 @@ struct live_hospital inter_create_live_hospital()
         printf("请输入院的月份（month）:\n");
         scanf("%d", &in_month);
         fflush(stdin);
+        in_month = (int)in_month;
         while (in_month > 12 || in_month < 1)
         {
             printf("月份输入错误！请重试！\n");
@@ -280,6 +293,7 @@ struct live_hospital inter_create_live_hospital()
         printf("请输入院的日期（day）:\n");
         scanf("%d", &in_day);
         fflush(stdin);
+        in_day = (int)in_day;
         while (in_day > 31 || in_day < 1)
         {
             printf("日期输入错误！请重试！\n");
@@ -291,6 +305,7 @@ struct live_hospital inter_create_live_hospital()
         printf("请输入院的时间（24小时制）（hour）:\n");
         scanf("%d", &in_hour);
         fflush(stdin);
+        in_hour = (int)in_hour;
         while (in_hour > 31 || in_hour < 1)
         {
             printf("时间输入错误！请重试！\n");
@@ -302,7 +317,8 @@ struct live_hospital inter_create_live_hospital()
         printf("请输入院的分钟（minute）:\n");
         scanf("%d", &out_month);
         fflush(stdin);
-        while (out_month > 60 || out_month < 1)
+        in_minute = (int)in_minute;
+        while (out_month > 60 || out_month < 0)
         {
             printf("分钟输入错误！请重试！\n");
             scanf("%d", &out_month);
@@ -311,20 +327,22 @@ struct live_hospital inter_create_live_hospital()
 
         // > out
         // 月
-        printf("请输入院的月份（month）:\n");
-        scanf("%d", &in_month);
+        printf("请输出院的月份（month）:\n");
+        scanf("%d", &out_month);
         fflush(stdin);
-        while (in_month > 12 || in_month < 1)
+        out_month = (int)out_month;
+        while (out_month > 12 || out_month < 1)
         {
             printf("月份输入错误！请重试！\n");
-            scanf("%d", &in_month);
+            scanf("%d", &out_month);
             fflush(stdin);
         }
 
         // 日
-        printf("请输入院的日期（day）:\n");
+        printf("请输出院的日期（day）:\n");
         scanf("%d", &out_day);
         fflush(stdin);
+        out_day = (int)out_day;
         while (out_day > 31 || out_day < 1)
         {
             printf("日期输入错误！请重试！\n");
@@ -333,9 +351,10 @@ struct live_hospital inter_create_live_hospital()
         }
 
         // 时
-        printf("请输入院的时间（24小时制）（hour）:\n");
+        printf("请输出院的时间（24小时制）（hour）:\n");
         scanf("%d", &out_hour);
         fflush(stdin);
+        out_hour = (int)out_hour;
         while (out_hour > 31 || out_hour < 1)
         {
             printf("时间输入错误！请重试！\n");
@@ -344,9 +363,10 @@ struct live_hospital inter_create_live_hospital()
         }
 
         // min
-        printf("请输入院的分钟（minute）:\n");
+        printf("请输出院的分钟（minute）:\n");
         scanf("%d", &out_minute);
         fflush(stdin);
+        out_minute = (int)out_minute;
         while (out_minute > 60 || out_minute < 1)
         {
             printf("分钟输入错误！请重试！\n");
@@ -357,15 +377,18 @@ struct live_hospital inter_create_live_hospital()
         // final check
         printf("入院时间: %d月 %d日 %d时 %d分 \n", in_month, in_day, in_hour, in_minute);
         printf("出院时间: %d月 %d日 %d时 %d分 \n", out_month, out_day, out_hour, out_minute);
-        printf("以上信息是否正确，正确请输入 1，重新输入信息请输入 0\n");
-        scanf("%d", &finalCheck);
-        fflush(stdin);
-        while ((finalCheck * 1) != 1 || (finalCheck * 1) != 0)
-        {
-            printf("输入有误，请重试\n");
-            scanf("%d", &finalCheck);
-            fflush(stdin);
-        }
+
+        finalCheck = isNextInput("以上信息是否正确，正确请输入 1，重新输入信息请输入 0");
+
+        // printf("以上信息是否正确，正确请输入 1，重新输入信息请输入 0\n");
+        // scanf("%d", &finalCheck);
+        // fflush(stdin);
+        // while ((finalCheck * 1) != 1 || (finalCheck * 1) != 0)
+        // {
+        //     printf("输入有误，请重试\n");
+        //     scanf("%d", &finalCheck);
+        //     fflush(stdin);
+        // }
 
         if (finalCheck == 1)
         {
@@ -378,6 +401,7 @@ struct live_hospital inter_create_live_hospital()
             printf("重新输入住院信息\n");
         }
     }
+    return live;
 }
 
 // 交互设计: 诊疗记录 组装起来 需要一个药物列表
