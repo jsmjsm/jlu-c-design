@@ -2,8 +2,14 @@
 #include <unistd.h>
 #include "controlPanel.h"
 
-void mainControl()
+void mainControl() // 主界面
 {
+    // TODO；Init!
+
+    /*需要：初始化*/
+
+    /*需要： 记录装载*/
+
     int isEnterMenu = -1;
     int isExit = 0;
 

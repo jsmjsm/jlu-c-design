@@ -6,6 +6,7 @@
 $ gcc main.c controlPanel.c - o main &&./ main
 */
 
+// 主函数
 int main(int argc, char const *argv[])
 {
     mainControl();
