@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS  
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,20 +6,20 @@
 #include "basic_function.h"
 #include "fileFunction.h"
 #include "interaction.h"
-#pragma warning (disable:4996)
+#pragma warning(disable : 4996)
 
 //定义记录record的链表
-struct record_list rl = { NULL };
-struct record_list* rlp = &rl;
+struct record_list rl = {NULL};
+struct record_list *rlp = &rl;
 //定义记录doctor的链表
-struct doctor_list dl = { NULL };
-struct doctor_list* dlp = &dl;
+struct doctor_list dl = {NULL};
+struct doctor_list *dlp = &dl;
 //定义记录record时需要用到的doctor链表，无用，只是用来凑成函数所需参数
-struct doctor_list useless_dl = { NULL };
-struct doctor_list* useless_dlp = &useless_dl;
+struct doctor_list useless_dl = {NULL};
+struct doctor_list *useless_dlp = &useless_dl;
 //定义记录medicine的链表
-struct medicine_list ml = { NULL };
-struct medicine_list* mlp = &ml;
+struct medicine_list ml = {NULL};
+struct medicine_list *mlp = &ml;
 
 void mainControl() // 主界面
 {
@@ -133,30 +133,39 @@ int spaceMenu()
 // 根据menu决定操作
 int operateMenu(int menuDecision)
 {
-	char ** record_array = (char**)malloc(10000 * sizeof(char*));
-	for (int i = 0; i < 10000; i++) {
-		record_array[i] = (char*)malloc(20 * sizeof(char));
+	char **record_array = (char **)malloc(10000 * sizeof(char *));
+	for (int i = 0; i < 10000; i++)
+	{
+		record_array[i] = (char *)malloc(20 * sizeof(char));
 	}
-	for (int i = 0; i < 10000; i++) {
-		for (int j = 0; j < 20; j++) {
+	for (int i = 0; i < 10000; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
 			record_array[i][j] = 0;
 		}
 	}
-	char ** doctor_array = (char**)malloc(10000 * sizeof(char*));
-	for (int i = 0; i < 10000; i++) {
-		doctor_array[i] = (char*)malloc(20 * sizeof(char));
+	char **doctor_array = (char **)malloc(10000 * sizeof(char *));
+	for (int i = 0; i < 10000; i++)
+	{
+		doctor_array[i] = (char *)malloc(20 * sizeof(char));
 	}
-	for (int i = 0; i < 10000; i++) {
-		for (int j = 0; j < 20; j++) {
+	for (int i = 0; i < 10000; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
 			doctor_array[i][j] = 0;
 		}
 	}
-	char ** medicine_array = (char**)malloc(10000 * sizeof(char*));
-	for (int i = 0; i < 10000; i++) {
-		medicine_array[i] = (char*)malloc(20 * sizeof(char));
+	char **medicine_array = (char **)malloc(10000 * sizeof(char *));
+	for (int i = 0; i < 10000; i++)
+	{
+		medicine_array[i] = (char *)malloc(20 * sizeof(char));
 	}
-	for (int i = 0; i < 10000; i++) {
-		for (int j = 0; j < 20; j++) {
+	for (int i = 0; i < 10000; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
 			medicine_array[i][j] = 0;
 		}
 	}
@@ -172,33 +181,34 @@ int operateMenu(int menuDecision)
 		printf("1. 从文件导入诊疗记录\n");
 		/*TODO: 接口接入*/
 
-		  //*************************record记录************************
+		//*************************record记录************************
 		readin_record(record_array);
-		flag = 1;//判断值
-		posi = 0;//用于确定当前在数组的哪一行
-		while (flag) {
+		flag = 1; //判断值
+		posi = 0; //用于确定当前在数组的哪一行
+		while (flag)
+		{
 			flag = 0;
-			struct patient pa = create_patient(record_array[posi], atoi(record_array[posi + 1]), atoi(record_array[posi + 2]));//病人
-			posi += 3;//数组行数+3
+			struct patient pa = create_patient(record_array[posi], atoi(record_array[posi + 1]), atoi(record_array[posi + 2])); //病人
+			posi += 3;																											//数组行数+3
 
-			int temp_visit[8] = { 0 };//医生
+			int temp_visit[8] = {0}; //医生
 			temp_visit[0] = atoi(record_array[posi + 4]);
-			struct doctor* dop = create_doctor(record_array[posi], record_array[posi + 1], record_array[posi + 2], atoi(record_array[posi + 3]), temp_visit, useless_dlp);
-			posi += 5;//数组行数+5
+			struct doctor *dop = create_doctor(record_array[posi], record_array[posi + 1], record_array[posi + 2], atoi(record_array[posi + 3]), temp_visit, useless_dlp);
+			posi += 5; //数组行数+5
 
-			int numOFbodycheck = atoi(record_array[posi]);//体检数量
-			struct body_Check* bc_cur = NULL;//当前体检节点
-			struct body_Check* bc_pre = NULL;//体检前驱节点
-			struct body_Check* bc_head = NULL;//头结点
-			for (int i = 0; i < numOFbodycheck; i++)//体检
+			int numOFbodycheck = atoi(record_array[posi]); //体检数量
+			struct body_Check *bc_cur = NULL;			   //当前体检节点
+			struct body_Check *bc_pre = NULL;			   //体检前驱节点
+			struct body_Check *bc_head = NULL;			   //头结点
+			for (int i = 0; i < numOFbodycheck; i++)	   //体检
 			{
-				if (i == 0)//创建体检链表头
+				if (i == 0) //创建体检链表头
 				{
 					bc_cur = create_check(bc_pre, record_array[posi + 1], atoi(record_array[posi + 2]));
-					bc_head = bc_cur;//确定头结点
+					bc_head = bc_cur; //确定头结点
 					posi += 3;
 				}
-				else//非表头
+				else //非表头
 				{
 					bc_pre = bc_cur;
 					bc_cur = create_check(bc_pre, record_array[posi], atoi(record_array[posi + 1]));
@@ -206,29 +216,29 @@ int operateMenu(int menuDecision)
 				}
 			}
 
-			int numOFusemedicine = atoi(record_array[posi]);//用药数量
-			struct used_Medicine* um_cur = NULL;//当前用药节点
-			struct used_Medicine* um_pre = NULL;//用药前驱节点
-			struct used_Medicine* um_head = NULL;//头结点
-			for (int i = 0; i < numOFusemedicine; i++)//用药
+			int numOFusemedicine = atoi(record_array[posi]); //用药数量
+			struct used_Medicine *um_cur = NULL;			 //当前用药节点
+			struct used_Medicine *um_pre = NULL;			 //用药前驱节点
+			struct used_Medicine *um_head = NULL;			 //头结点
+			for (int i = 0; i < numOFusemedicine; i++)		 //用药
 			{
-				if (i == 0)//创建用药链表头
+				if (i == 0) //创建用药链表头
 				{
-					struct medicine* m;
-					m = (struct medicine*)malloc(sizeof(struct medicine));//生成药品
-					strcpy(m->name, record_array[posi + 1]);//药品名称
+					struct medicine *m;
+					m = (struct medicine *)malloc(sizeof(struct medicine)); //生成药品
+					strcpy(m->name, record_array[posi + 1]);				//药品名称
 					m->unit_Price = atoi(record_array[posi + 2]);
 					m->next = NULL;
 					um_cur = create_use_m(um_pre, m, atoi(record_array[posi + 3]));
 					um_head = um_cur;
 					posi += 4;
 				}
-				else//非表头
+				else //非表头
 				{
 					um_pre = um_cur;
-					struct medicine* m;
-					m = (struct medicine*)malloc(sizeof(struct medicine));//生成药品
-					strcpy(m->name, record_array[posi]);//药品名称
+					struct medicine *m;
+					m = (struct medicine *)malloc(sizeof(struct medicine)); //生成药品
+					strcpy(m->name, record_array[posi]);					//药品名称
 					m->unit_Price = atoi(record_array[posi + 1]);
 					m->next = NULL;
 					um_cur = create_use_m(um_pre, m, atoi(record_array[posi + 2]));
@@ -238,9 +248,9 @@ int operateMenu(int menuDecision)
 
 			//住院信息
 			struct live_hospital lh = create_live_hospital(atoi(record_array[posi]), atoi(record_array[posi + 1]), atoi(record_array[posi + 2]), atoi(record_array[posi + 3]),
-				atoi(record_array[posi + 4]), atoi(record_array[posi + 5]), atoi(record_array[posi + 6]), atoi(record_array[posi + 7]));
+														   atoi(record_array[posi + 4]), atoi(record_array[posi + 5]), atoi(record_array[posi + 6]), atoi(record_array[posi + 7]));
 			posi += 8;
-			struct live_hospital* lhp = &lh;
+			struct live_hospital *lhp = &lh;
 
 			//生成treatment
 			struct treatment tm;
@@ -249,15 +259,16 @@ int operateMenu(int menuDecision)
 			//生成record
 			addOneRecord(rlp, pa, dop, tm);
 
-			if (strlen(record_array[posi]) > 0)//判断是否当前record是否为最后一条
+			if (strlen(record_array[posi]) > 0) //判断是否当前record是否为最后一条
 				flag = 1;
 		}
 
 		//******************doctor信息******************
 		readin_doctor(doctor_array);
-		flag = 1;//判断值
-		posi = 0;//用于确定当前在数组的哪一行
-		while (flag) {
+		flag = 1; //判断值
+		posi = 0; //用于确定当前在数组的哪一行
+		while (flag)
+		{
 			flag = 0;
 			int temp_visit[8];
 			for (int i = 0; i < 8; i++)
@@ -265,20 +276,21 @@ int operateMenu(int menuDecision)
 			create_doctor(doctor_array[posi], doctor_array[posi + 1], doctor_array[posi + 2], atoi(doctor_array[posi + 3]), temp_visit, dlp);
 			posi += 12;
 
-			if (strlen(doctor_array[posi]) > 0)//判断是否当前record是否为最后一条
+			if (strlen(doctor_array[posi]) > 0) //判断是否当前record是否为最后一条
 				flag = 1;
 		}
 
 		//******************medicine_list信息******************
 		readin_medicine(medicine_array);
-		flag = 1;//判断值
-		posi = 0;//用于确定当前在数组的哪一行
-		while (flag) {
+		flag = 1; //判断值
+		posi = 0; //用于确定当前在数组的哪一行
+		while (flag)
+		{
 			flag = 0;
 			add_to_medicine_list(mlp, medicine_array[posi], atoi(medicine_array[posi + 1]));
 			posi += 2;
 
-			if (strlen(medicine_array[posi]) > 0)//判断是否当前record是否为最后一条
+			if (strlen(medicine_array[posi]) > 0) //判断是否当前record是否为最后一条
 				flag = 1;
 		}
 
@@ -286,7 +298,7 @@ int operateMenu(int menuDecision)
 	case 2:
 		printf("2. 录入一条诊疗记录\n");
 		/*TODO: 接口接入*/
-		inter_add_one_record(rlp, mlp);
+		inter_add_one_record(rlp, mlp, dlp);
 		break;
 	case 3:
 		printf("3. 修改一条诊疗记录\n");
@@ -329,7 +341,6 @@ int operateMenu(int menuDecision)
 	case 11:
 		printf("11. 保存系统信息文件\n");
 		/*TODO: 接口接入*/
-
 
 		//***********************保存record***********************
 		writeout_record(rlp->head);

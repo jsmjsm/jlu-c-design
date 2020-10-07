@@ -432,21 +432,52 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	return t;
 }
 
+// 交互找医生
+struct doctor *inter_find_doctor(struct doctor_list *list)
+{
+	struct doctor *result = NULL;
+	struct doctor temp_doctor = {"无名", "无职", "无科室", -1, {0}, NULL};
+
+	int temp_id = 0;
+	/*
+
+	*/
+	temp_id = inputID("欲查找的医生ID");
+
+	result = find_doctor(temp_id, *list);
+
+	if (result == NULL)
+	{
+		printf("无此医生\n");
+		result = &(temp_doctor);
+	}
+	else
+	{
+		printf("查找医生成功\n");
+		return result;
+	}
+
+	return result;
+}
+
 // 交互设计：添加一条记录
 // TODO: 未测试可行性
-int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list)
+int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *d_list)
 {
 	struct patient temp_patient;
-	struct doctor temp_doctor;
+	struct doctor *temp_doctor;
 	struct treatment temp_treatment;
 
 	printf("即将创建一条 redcord!\n");
+
 	temp_patient = inter_craate_patient();
+
 	// temp_doctor = inter_create_doctor();
+	temp_doctor = inter_find_doctor(d_list);
 
 	temp_treatment = inter_create_treatment(m_list);
 
-	addOneRecord(r_list, temp_patient, &(temp_doctor), temp_treatment);
+	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);
 	printf("record 创建成功!\n");
 	return 0;
 }
