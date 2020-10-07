@@ -4,20 +4,20 @@
 #include "function.h"
 
 
-int deleteOneRecord(struct record_list * list, int register_id) { //É¾³ý¹ÒºÅÎªxxxµÄ¼ÇÂ¼
+int deleteOneRecord(struct record_list * list, int register_id) { //åˆ é™¤æŒ‚å·ä¸ºxxxçš„è®°å½•
 	struct record * temp;
 	struct record * previous = NULL;
 	temp = list->head;
 	if (temp == NULL)return 0;
 	while (temp != NULL) {
-		if (temp->pa.register_id == register_id) { //·¢ÏÖÒªÉ¾³ýµÄ¼ÇÂ¼
+		if (temp->pa.register_id == register_id) { //å‘çŽ°è¦åˆ é™¤çš„è®°å½•
 			if (temp == list->head) {
 				list->head = list->head->next;
 			}
 			else {
 				previous->next = temp->next;
 			}
-			//¼ÓÈëÄÚ´æÊÍ·Å
+			//åŠ å…¥å†…å­˜é‡Šæ”¾
 			return 1;
 		}
 		previous = temp;
@@ -84,12 +84,12 @@ int printRecordDuringTime(struct record_list * list, int start_m, int start_d, i
 }
 
 int calcDoctorBusy(struct record_list * r_list, struct doctor_list d_list) {
-	int working[30] = { 0 }; //¼ÇÂ¼ÈýÊ®¸öÒ½Éú
+	int working[30] = { 0 }; //è®°å½•ä¸‰åä¸ªåŒ»ç”Ÿ
 	int i = 0;
 	struct doctor * temp_d;
 	struct record * temp_t;
 	temp_d = d_list.head;
-	printf("¸÷Ò½Éú³öÕïÇé¿ö£º\n");
+	printf("å„åŒ»ç”Ÿå‡ºè¯Šæƒ…å†µï¼š\n");
 	while (temp_d != NULL) {
 		temp_t = r_list->head;
 		while (temp_t != NULL) {
@@ -97,7 +97,7 @@ int calcDoctorBusy(struct record_list * r_list, struct doctor_list d_list) {
 				working[i]++;
 			temp_t = temp_t->next;
 		}
-		printf("%s%s£¨¹¤ºÅ£º%d£©ÔÚ½ñÄê³öÕïÁË%d´Î\n", temp_d->level, temp_d->name, temp_d->worker_id, working[i]);
+		printf("%s%sï¼ˆå·¥å·ï¼š%dï¼‰åœ¨ä»Šå¹´å‡ºè¯Šäº†%dæ¬¡\n", temp_d->level, temp_d->name, temp_d->worker_id, working[i]);
 		i++;
 		temp_d = temp_d->next;
 	}
@@ -113,8 +113,8 @@ int createLiveInHospital(struct record_list * list, struct time now) {
 	int end_time;
 	int now_time;
 	now_time = now.month * 1000000 + now.day * 10000 + now.hour * 100 + now.minute;
-	printf("µ±Ç°Ê±¼ä:%dÔÂ%dÈÕ%dÊ±%d·Ö\n", now.month, now.day, now.hour, now.minute);
-	printf("µ±Ç°×¡Ôº»¼Õß£º\n\n");
+	printf("å½“å‰æ—¶é—´:%dæœˆ%dæ—¥%dæ—¶%dåˆ†\n", now.month, now.day, now.hour, now.minute);
+	printf("å½“å‰ä½é™¢æ‚£è€…ï¼š\n\n");
 	temp = list->head;
 	while (temp != NULL) {
 		temp_t = temp->tm.lh->in_time;
@@ -122,11 +122,11 @@ int createLiveInHospital(struct record_list * list, struct time now) {
 		temp_t = temp->tm.lh->out_time;
 		end_time = temp_t.month * 1000000 + temp_t.day * 10000 + temp_t.hour * 100 + temp_t.minute;
 		if (now_time >= start_time and now_time <= end_time) {
-			printf("»¼ÕßÐÕÃû£º%s   ", temp->pa.name);
-			printf("»¼ÕßÄêÁä£º%d\n", temp->pa.age);
-			printf("×¡ÔºÊ±¼ä£º%dÔÂ%dÈÕ%dÊ±%d·Ö\n", temp->tm.lh->in_time.month, temp->tm.lh->in_time.day, temp->tm.lh->in_time.hour, temp->tm.lh->in_time.minute);
-			printf("Ô¤ÆÚ³öÔºÊ±¼ä£º%dÔÂ%dÈÕ%dÊ±%d·Ö\n", temp->tm.lh->out_time.month, temp->tm.lh->out_time.day, temp->tm.lh->out_time.hour, temp->tm.lh->out_time.minute);
-			printf("Ñº½ð£º%.2fÔª\n", temp->tm.lh->pledge * 1.0 / 100);
+			printf("æ‚£è€…å§“åï¼š%s   ", temp->pa.name);
+			printf("æ‚£è€…å¹´é¾„ï¼š%d\n", temp->pa.age);
+			printf("ä½é™¢æ—¶é—´ï¼š%dæœˆ%dæ—¥%dæ—¶%dåˆ†\n", temp->tm.lh->in_time.month, temp->tm.lh->in_time.day, temp->tm.lh->in_time.hour, temp->tm.lh->in_time.minute);
+			printf("é¢„æœŸå‡ºé™¢æ—¶é—´ï¼š%dæœˆ%dæ—¥%dæ—¶%dåˆ†\n", temp->tm.lh->out_time.month, temp->tm.lh->out_time.day, temp->tm.lh->out_time.hour, temp->tm.lh->out_time.minute);
+			printf("æŠ¼é‡‘ï¼š%.2få…ƒ\n", temp->tm.lh->pledge * 1.0 / 100);
 			printf("\n");
 		}
 		temp = temp->next;
@@ -134,13 +134,13 @@ int createLiveInHospital(struct record_list * list, struct time now) {
 	return 1;
 }
 
-double deduct_expenses(struct record_list * list, struct time now) { //¸ù¾Ýµ±Ç°Ê±¼ä¿Û³ýµ±Ç°×¡Ôº»¼ÕßµÄ·ÑÓÃ
+double deduct_expenses(struct record_list * list, struct time now) { //æ ¹æ®å½“å‰æ—¶é—´æ‰£é™¤å½“å‰ä½é™¢æ‚£è€…çš„è´¹ç”¨
 	struct record * temp;
 	struct time temp_t;
 	int start_time;
 	int end_time;
 	int now_time;
-	int expense = 0; //ÊÕ·Ñ
+	int expense = 0; //æ”¶è´¹
 	now_time = now.month * 1000000 + now.day * 10000 + now.hour * 100 + now.minute;
 	temp = list->head;
 	while (temp != NULL) {
@@ -149,10 +149,10 @@ double deduct_expenses(struct record_list * list, struct time now) { //¸ù¾Ýµ±Ç°Ê
 		temp_t = temp->tm.lh->out_time;
 		end_time = temp_t.month * 1000000 + temp_t.day * 10000 + temp_t.hour * 100 + temp_t.minute;
 		if (now_time >= start_time and now_time <= end_time) {
-			if (temp->tm.lh->pledge >= 120000) { //¿Û³ýÑº½ð
+			if (temp->tm.lh->pledge >= 120000) { //æ‰£é™¤æŠ¼é‡‘
 				temp->tm.lh->pledge -= 20000;
 			}
-			else if (temp->tm.lh->pledge < 120000 and temp->tm.lh->pledge >= 100000) { //Ñº½ðÐ¡ÓÚ1000
+			else if (temp->tm.lh->pledge < 120000 and temp->tm.lh->pledge >= 100000) { //æŠ¼é‡‘å°äºŽ1000
 				temp->tm.lh->pledge = 100000;
 			}
 			expense += 20000;
@@ -162,7 +162,7 @@ double deduct_expenses(struct record_list * list, struct time now) { //¸ù¾Ýµ±Ç°Ê
 	return expense * 1.0 / 100;
 }
 
-double calcCurrentTurnover(struct record_list * list, double live_hospital) { //¼ÆËãÌå¼ì·ÑÓÃºÍÒ©Îï·ÑÓÃ£¬×¡Ôº·ÑÓÃÁíÍâ¼ÆËã
+double calcCurrentTurnover(struct record_list * list, double live_hospital) { //è®¡ç®—ä½“æ£€è´¹ç”¨å’Œè¯ç‰©è´¹ç”¨ï¼Œä½é™¢è´¹ç”¨å¦å¤–è®¡ç®—
 	struct record * temp;
 	temp = list->head;
 	int total_money = 0;

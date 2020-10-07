@@ -5,7 +5,7 @@ struct patient
 {
 	char name[20];
 	int age;
-	int register_id; //¹ÒºÅ
+	int register_id; //å¢ƒç˜
 };
 
 #endif

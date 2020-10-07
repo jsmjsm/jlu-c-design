@@ -5,13 +5,13 @@
 #include"treatment.h"
 #include"fileFunction.h"
 
-void readin_medicine(char** result)//´«½øÀ´´æ´¢medicineĞÅÏ¢µÄÊı×éÃû
+void readin_medicine(char** result)//ä¼ è¿›æ¥å­˜å‚¨medicineä¿¡æ¯çš„æ•°ç»„å
 {
 	FILE* fileread;
 	fileread = fopen("txt\\medicine.txt", "r");
 	char buf[20] = { 0 };
 	if (fileread == NULL)
-		printf("¶ÁÈëÎÄ¼şÖ¸ÕëÎª¿Õ£¡\n");
+		printf("è¯»å…¥æ–‡ä»¶æŒ‡é’ˆä¸ºç©ºï¼\n");
 	else
 	{
 		int i = 0;
@@ -19,7 +19,7 @@ void readin_medicine(char** result)//´«½øÀ´´æ´¢medicineĞÅÏ¢µÄÊı×éÃû
 		while (fgets(buf, 20, fileread) != NULL)
 		{
 			if ((cp = strchr(buf, '\n')) != NULL)
-				*cp = '\0';//ÊÖ¶¯½«\nÎ»ÖÃ´¦µÄÖµ±äÎª0
+				*cp = '\0';//æ‰‹åŠ¨å°†\nä½ç½®å¤„çš„å€¼å˜ä¸º0
 			strcpy(result[i], buf);
 			i++;
 		}

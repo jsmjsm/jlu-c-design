@@ -7,26 +7,26 @@
 
 void writeout_medicine(struct medicine_list ml)
 {
-	struct medicine* temp_md = ml.head;//ÓÃÓÚÔÝÊ±±£´æµ±Ç°recordÖ¸Õë
-	if (temp_md == NULL)//ÅÐ¶ÏÍ·Ö¸Õë
+	struct medicine* temp_md = ml.head;//ç”¨äºŽæš‚æ—¶ä¿å­˜å½“å‰recordæŒ‡é’ˆ
+	if (temp_md == NULL)//åˆ¤æ–­å¤´æŒ‡é’ˆ
 	{
-		printf("medicineÁ´±íÍ·Ö¸ÕëÎª¿Õ£¡");
+		printf("medicineé“¾è¡¨å¤´æŒ‡é’ˆä¸ºç©ºï¼");
 		return;
 	}
 	else {
 		FILE* filewrite = fopen("txt\\medicine.txt", "w");
-		char intTOchar[16] = { 0 };//ÓÃÓÚ½«intÀàÐÍ×ª»»Îªchar*
+		char intTOchar[16] = { 0 };//ç”¨äºŽå°†intç±»åž‹è½¬æ¢ä¸ºchar*
 		if (filewrite == NULL)
 		{
-			printf("Ð´³öÎÄ¼þÖ¸ÕëÎª¿Õ£¡\n");
+			printf("å†™å‡ºæ–‡ä»¶æŒ‡é’ˆä¸ºç©ºï¼\n");
 			return;
 		}
 		else {
 			while (1)
 			{
-				fputs(temp_md->name, filewrite); fputs("\n", filewrite);//Ãû×Ö
-				itoa(temp_md->unit_Price, intTOchar, 10);//int×ªchar*
-				fputs(intTOchar, filewrite); //µ¥¼Û
+				fputs(temp_md->name, filewrite); fputs("\n", filewrite);//åå­—
+				itoa(temp_md->unit_Price, intTOchar, 10);//intè½¬char*
+				fputs(intTOchar, filewrite); //å•ä»·
 
 				if (temp_md->next != NULL)
 				{

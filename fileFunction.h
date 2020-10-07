@@ -1,9 +1,9 @@
 #ifndef FILEFUNCTION_H
 #define FILEFUNCTION_H
-void readin_record(char ** result);//传进来存储record信息的数组名
+void readin_record(char ** result);//浼犺繘鏉ュ瓨鍌╮ecord淇℃伅鐨勬暟缁勫悕
 void writeout_record(struct record* head);
-void readin_medicine(char ** result);//传进来存储record信息的数组名
+void readin_medicine(char ** result);//浼犺繘鏉ュ瓨鍌╮ecord淇℃伅鐨勬暟缁勫悕
 void writeout_medicine(struct medicine_list ml);
-void readin_doctor(char ** result);//传进来存储record信息的数组名
+void readin_doctor(char ** result);//浼犺繘鏉ュ瓨鍌╮ecord淇℃伅鐨勬暟缁勫悕
 void writeout_doctor(struct doctor_list dl);
 #endif

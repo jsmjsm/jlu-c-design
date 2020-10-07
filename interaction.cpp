@@ -5,28 +5,28 @@
 #include "inputFunc.h"
 #include "function.h"
 
-// ½»»¥Éè¼Æ£º±£´æ»¼ÕßĞÅÏ¢£¬·µ»ØÒ»¸ö patient ½á¹¹Ìå£¬È»ºóµ÷ÓÃ create_patient(,,,) º¯Êı
+// äº¤äº’è®¾è®¡ï¼šä¿å­˜æ‚£è€…ä¿¡æ¯ï¼Œè¿”å›ä¸€ä¸ª patient ç»“æ„ä½“ï¼Œç„¶åè°ƒç”¨ create_patient(,,,) å‡½æ•°
 struct patient inter_craate_patient()
 {
-	// »¼Õß½á¹¹Ìå
+	// æ‚£è€…ç»“æ„ä½“
 	struct patient pa;
 	pa.age = -1;
 	pa.register_id = -1;
-	strcpy(pa.name, inputCharWithTitle("»¼ÕßĞÕÃû"));
+	strcpy(pa.name, inputCharWithTitle("æ‚£è€…å§“å"));
 	pa.age = inputAge();
-	pa.register_id = inputID("¹ÒºÅ");
+	pa.register_id = inputID("æŒ‚å·");
 	return pa;
 }
 
-// ½»»¥Éè¼Æ: ±£´æÒ½ÉúĞÅÏ¢, ·µ»ØÒ»¸öÒ½Éú½á¹¹Ìå
+// äº¤äº’è®¾è®¡: ä¿å­˜åŒ»ç”Ÿä¿¡æ¯, è¿”å›ä¸€ä¸ªåŒ»ç”Ÿç»“æ„ä½“
 struct doctor inter_create_doctor()
 {
 	struct doctor oneDoctor;
-	strcpy(oneDoctor.name, inputCharWithTitle("Ò½ÉúĞÕÃû"));
-	strcpy(oneDoctor.level, inputCharWithTitle("Ò½ÉúÖ°³Æ"));
-	strcpy(oneDoctor.department, inputCharWithTitle("Ò½Éú¿ÆÊÒ"));
-	oneDoctor.worker_id = inputID("¹¤ºÅ");
-	// Ò»ÖÜÉÏ°à¶àÉÙÌì
+	strcpy(oneDoctor.name, inputCharWithTitle("åŒ»ç”Ÿå§“å"));
+	strcpy(oneDoctor.level, inputCharWithTitle("åŒ»ç”ŸèŒç§°"));
+	strcpy(oneDoctor.department, inputCharWithTitle("åŒ»ç”Ÿç§‘å®¤"));
+	oneDoctor.worker_id = inputID("å·¥å·");
+	// ä¸€å‘¨ä¸Šç­å¤šå°‘å¤©
 	int *p;
 	p = inputWork();
 	for (int i = 0; i <= 7; i++)
@@ -47,7 +47,7 @@ struct doctor inter_create_doctor()
 	return oneDoctor;
 }
 
-// ½»»¥Éè¼Æ£º±£´æÉíÌå¼ì²éĞÅÏ¢£¬·µ»ØÉíÌå¼ì²éÁ´±íµÄÍ·Ö¸Õë
+// äº¤äº’è®¾è®¡ï¼šä¿å­˜èº«ä½“æ£€æŸ¥ä¿¡æ¯ï¼Œè¿”å›èº«ä½“æ£€æŸ¥é“¾è¡¨çš„å¤´æŒ‡é’ˆ
 struct body_Check *inter_create_check()
 {
 	// var
@@ -55,11 +55,11 @@ struct body_Check *inter_create_check()
 	char temp_name[20];
 	int temp_price = 0;
 	// Input name
-	strcpy(temp_name, inputCharWithTitle("¼ì²éÏîÄ¿Ãû³Æ"));
+	strcpy(temp_name, inputCharWithTitle("æ£€æŸ¥é¡¹ç›®åç§°"));
 	// Input price
 	temp_price = inputPrice(1);
 
-	// Á´±íĞÎÊ½ ²åÈë
+	// é“¾è¡¨å½¢å¼ æ’å…¥
 	struct body_Check *check_head, *node, *end; // return the head, use the head can visit the whole list
 
 	// insert
@@ -74,14 +74,14 @@ struct body_Check *inter_create_check()
 	while (isNext == 1)
 	{
 		// check isNext
-		isNext = isNextInput("ÊÇ·ñ»¹ÓĞÆäËû¼ì²éÏîÄ¿£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0");
+		isNext = isNextInput("æ˜¯å¦è¿˜æœ‰å…¶ä»–æ£€æŸ¥é¡¹ç›®ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0");
 		/*
-		printf("ÊÇ·ñ»¹ÓĞÆäËû¼ì²éÏîÄ¿£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0\n");
+		printf("æ˜¯å¦è¿˜æœ‰å…¶ä»–æ£€æŸ¥é¡¹ç›®ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0\n");
 		scanf("%d", &isNext);
 		fflush(stdin);
 		while (isNext != 1 && isNext != 0)
 		{
-			printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ£¡\n");
+			printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•ï¼\n");
 			scanf("%d", &isNext);
 			fflush(stdin);
 		}
@@ -107,7 +107,7 @@ struct body_Check *inter_create_check()
 		else if (isNext == 1)
 		{
 			// Input name
-			strcpy(temp_name, inputCharWithTitle("¼ì²éÏîÄ¿Ãû³Æ"));
+			strcpy(temp_name, inputCharWithTitle("æ£€æŸ¥é¡¹ç›®åç§°"));
 			// Input price
 			temp_price = inputPrice(1);
 			// insert new
@@ -125,7 +125,7 @@ struct body_Check *inter_create_check()
 	return 0;
 }
 
-// ½»»¥Éè¼Æ£º´´½¨Ò»¸ö medicine list
+// äº¤äº’è®¾è®¡ï¼šåˆ›å»ºä¸€ä¸ª medicine list
 struct medicine_list *inter_create_medicine_list()
 {
 	// init
@@ -139,7 +139,7 @@ struct medicine_list *inter_create_medicine_list()
 	int temp_price = 0;
 
 	// create the list
-	strcpy(temp_name, inputCharWithTitle("Ò©Æ·Ãû³Æ"));
+	strcpy(temp_name, inputCharWithTitle("è¯å“åç§°"));
 	temp_price = inputPrice(1);
 	add_to_medicine_list(m_list, temp_name, temp_price);
 
@@ -147,26 +147,26 @@ struct medicine_list *inter_create_medicine_list()
 	while (isNext == 1)
 	{
 		// check isNext
-		isNext = isNextInput("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0");
+		isNext = isNextInput("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0");
 		/*
-		printf("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0\n");
+		printf("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0\n");
 		scanf("%d", &isNext);
 		fflush(stdin);
 		while (isNext != 1 && isNext != 0)
 		{
-			printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ£¡\n");
+			printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•ï¼\n");
 			scanf("%d", &isNext);
 			fflush(stdin);
 		}
 		*/
 
-		if (isNext == 0) // Ã»ÓĞÆäËûÒ©Îï
+		if (isNext == 0) // æ²¡æœ‰å…¶ä»–è¯ç‰©
 		{
 			return m_list;
 		}
-		else if (isNext == 1) // ÓĞÆäËûÒ©Îï
+		else if (isNext == 1) // æœ‰å…¶ä»–è¯ç‰©
 		{
-			strcpy(temp_name, inputCharWithTitle("Ò©Æ·Ãû³Æ"));
+			strcpy(temp_name, inputCharWithTitle("è¯å“åç§°"));
 			temp_price = inputPrice(1);
 			add_to_medicine_list(m_list, temp_name, temp_price);
 		}
@@ -178,25 +178,25 @@ struct medicine_list *inter_create_medicine_list()
 	return 0;
 }
 
-// ½»»¥Éè¼Æ£º²éÕÒÕâÖÖÒ©ÓĞÃ»ÓĞ
+// äº¤äº’è®¾è®¡ï¼šæŸ¥æ‰¾è¿™ç§è¯æœ‰æ²¡æœ‰
 struct medicine *inter_search_medicine(struct medicine_list *m_list)
 {
 	struct medicine *result;
 	char temp_name[20];
-	strcpy(temp_name, inputCharWithTitle("Óû²éÑ¯µÄÒ©ÎïÃû³Æ"));
+	strcpy(temp_name, inputCharWithTitle("æ¬²æŸ¥è¯¢çš„è¯ç‰©åç§°"));
 	result = search_medicine(m_list, temp_name);
 	if (result == NULL)
 	{
-		printf("²é²»µ½ÄúĞèÒªµÄÒ©Æ·£¡\n");
+		printf("æŸ¥ä¸åˆ°æ‚¨éœ€è¦çš„è¯å“ï¼\n");
 	}
 	else
 	{
-		printf("²éÑ¯³É¹¦£¬Ò©ÎïÃû³Æ£º%s\n", result->name);
+		printf("æŸ¥è¯¢æˆåŠŸï¼Œè¯ç‰©åç§°ï¼š%s\n", result->name);
 	}
 	return result;
 }
 
-// ½»»¥Éè¼Æ£º¸ø»¼ÕßÓÃÒ©£¬´´½¨Ò»¸öÓÃÒ©ÁĞ±í£¬·µ»ØÍ·Ö¸Õë
+// äº¤äº’è®¾è®¡ï¼šç»™æ‚£è€…ç”¨è¯ï¼Œåˆ›å»ºä¸€ä¸ªç”¨è¯åˆ—è¡¨ï¼Œè¿”å›å¤´æŒ‡é’ˆ
 struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 {
 	// var
@@ -220,17 +220,17 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 
 		if (temp_medicine == NULL)
 		{
-			// ÕÒ²»µ½Ò©ÎïµÄ´¦Àí
-			// ÊÇ·ñ¼ÌĞøÕÒ
-			isNext = isNextInput("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0");
+			// æ‰¾ä¸åˆ°è¯ç‰©çš„å¤„ç†
+			// æ˜¯å¦ç»§ç»­æ‰¾
+			isNext = isNextInput("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0");
 			/*
-			printf("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0\n");
+			printf("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0\n");
 			scanf("%d", &isNext);
 			isNext = isNext * 1;
 			fflush(stdin);
 			while (isNext != 1 && isNext != 0)
 			{
-				printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ£¡\n");
+				printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•ï¼\n");
 				scanf("%d", &isNext);
 				fflush(stdin);
 			}
@@ -238,21 +238,21 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 		}
 		else
 		{
-			// ÕÒµ½Ò©Îï
-			// Ìí¼Óµ½±í
+			// æ‰¾åˆ°è¯ç‰©
+			// æ·»åŠ åˆ°è¡¨
 			temp_amount = inputAmount();
 			end->use_m = temp_medicine;
 			end->amount = temp_amount;
 			end->next = NULL;
-			// next£¿
-			isNext = isNextInput("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0");
+			// nextï¼Ÿ
+			isNext = isNextInput("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0");
 			/*
-			printf("ÊÇ·ñ»¹ÓĞÆäËûÒ©Æ·£¬ÊÇÔòÊäÈë 1£¬·ñÔòÊäÈë 0\n");
+			printf("æ˜¯å¦è¿˜æœ‰å…¶ä»–è¯å“ï¼Œæ˜¯åˆ™è¾“å…¥ 1ï¼Œå¦åˆ™è¾“å…¥ 0\n");
 			scanf("%d", &isNext);
 			fflush(stdin);
 			while (isNext != 1 && isNext != 0)
 			{
-				printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ£¡\n");
+				printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•ï¼\n");
 				scanf("%d", &isNext);
 				fflush(stdin);
 			}
@@ -262,8 +262,8 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 	return u_medicine_head;
 }
 
-// ½»»¥Éè¼Æ£º×¡Ôº¼ÇÂ¼
-// TODO: Î´²âÊÔ¿ÉĞĞĞÔ
+// äº¤äº’è®¾è®¡ï¼šä½é™¢è®°å½•
+// TODO: æœªæµ‹è¯•å¯è¡Œæ€§
 struct live_hospital inter_create_live_hospital()
 {
 	struct live_hospital live;
@@ -280,115 +280,115 @@ struct live_hospital inter_create_live_hospital()
 	while (finalCheck == 0)
 	{
 		// > in
-		// ÔÂ
-		printf("ÇëÊäÈëÔºµÄÔÂ·İ£¨month£©:\n");
+		// æœˆ
+		printf("è¯·è¾“å…¥é™¢çš„æœˆä»½ï¼ˆmonthï¼‰:\n");
 		scanf("%d", &in_month);
 		fflush(stdin);
 		in_month = (int)in_month;
 		while (in_month > 12 || in_month < 1)
 		{
-			printf("ÔÂ·İÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æœˆä»½è¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &in_month);
 			fflush(stdin);
 		}
 
-		// ÈÕ
-		printf("ÇëÊäÈëÔºµÄÈÕÆÚ£¨day£©:\n");
+		// æ—¥
+		printf("è¯·è¾“å…¥é™¢çš„æ—¥æœŸï¼ˆdayï¼‰:\n");
 		scanf("%d", &in_day);
 		fflush(stdin);
 		in_day = (int)in_day;
 		while (in_day > 31 || in_day < 1)
 		{
-			printf("ÈÕÆÚÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æ—¥æœŸè¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &in_day);
 			fflush(stdin);
 		}
 
-		// Ê±
-		printf("ÇëÊäÈëÔºµÄÊ±¼ä£¨24Ğ¡Ê±ÖÆ£©£¨hour£©:\n");
+		// æ—¶
+		printf("è¯·è¾“å…¥é™¢çš„æ—¶é—´ï¼ˆ24å°æ—¶åˆ¶ï¼‰ï¼ˆhourï¼‰:\n");
 		scanf("%d", &in_hour);
 		fflush(stdin);
 		in_hour = (int)in_hour;
 		while (in_hour > 31 || in_hour < 1)
 		{
-			printf("Ê±¼äÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æ—¶é—´è¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &in_hour);
 			fflush(stdin);
 		}
 
 		// min
-		printf("ÇëÊäÈëÔºµÄ·ÖÖÓ£¨minute£©:\n");
+		printf("è¯·è¾“å…¥é™¢çš„åˆ†é’Ÿï¼ˆminuteï¼‰:\n");
 		scanf("%d", &in_minute);
 		fflush(stdin);
 		in_minute = (int)in_minute;
 		while (in_minute > 60 || in_minute < 0)
 		{
-			printf("·ÖÖÓÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("åˆ†é’Ÿè¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &in_minute);
 			fflush(stdin);
 		}
 
 		// > out
-		// ÔÂ
-		printf("ÇëÊä³öÔºµÄÔÂ·İ£¨month£©:\n");
+		// æœˆ
+		printf("è¯·è¾“å‡ºé™¢çš„æœˆä»½ï¼ˆmonthï¼‰:\n");
 		scanf("%d", &out_month);
 		fflush(stdin);
 		out_month = (int)out_month;
 		while (out_month > 12 || out_month < 1)
 		{
-			printf("ÔÂ·İÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æœˆä»½è¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &out_month);
 			fflush(stdin);
 		}
 
-		// ÈÕ
-		printf("ÇëÊä³öÔºµÄÈÕÆÚ£¨day£©:\n");
+		// æ—¥
+		printf("è¯·è¾“å‡ºé™¢çš„æ—¥æœŸï¼ˆdayï¼‰:\n");
 		scanf("%d", &out_day);
 		fflush(stdin);
 		out_day = (int)out_day;
 		while (out_day > 31 || out_day < 1)
 		{
-			printf("ÈÕÆÚÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æ—¥æœŸè¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &out_day);
 			fflush(stdin);
 		}
 
-		// Ê±
-		printf("ÇëÊä³öÔºµÄÊ±¼ä£¨24Ğ¡Ê±ÖÆ£©£¨hour£©:\n");
+		// æ—¶
+		printf("è¯·è¾“å‡ºé™¢çš„æ—¶é—´ï¼ˆ24å°æ—¶åˆ¶ï¼‰ï¼ˆhourï¼‰:\n");
 		scanf("%d", &out_hour);
 		fflush(stdin);
 		out_hour = (int)out_hour;
 		while (out_hour > 31 || out_hour < 1)
 		{
-			printf("Ê±¼äÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("æ—¶é—´è¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &out_hour);
 			fflush(stdin);
 		}
 
 		// min
-		printf("ÇëÊä³öÔºµÄ·ÖÖÓ£¨minute£©:\n");
+		printf("è¯·è¾“å‡ºé™¢çš„åˆ†é’Ÿï¼ˆminuteï¼‰:\n");
 		scanf("%d", &out_minute);
 		fflush(stdin);
 		out_minute = (int)out_minute;
 		while (out_minute > 60 || out_minute < 0)
 		{
-			printf("·ÖÖÓÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
+			printf("åˆ†é’Ÿè¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
 			scanf("%d", &out_minute);
 			fflush(stdin);
 		}
 
 		// final check
-		printf("ÈëÔºÊ±¼ä: %dÔÂ %dÈÕ %dÊ± %d·Ö \n", in_month, in_day, in_hour, in_minute);
-		printf("³öÔºÊ±¼ä: %dÔÂ %dÈÕ %dÊ± %d·Ö \n", out_month, out_day, out_hour, out_minute);
+		printf("å…¥é™¢æ—¶é—´: %dæœˆ %dæ—¥ %dæ—¶ %dåˆ† \n", in_month, in_day, in_hour, in_minute);
+		printf("å‡ºé™¢æ—¶é—´: %dæœˆ %dæ—¥ %dæ—¶ %dåˆ† \n", out_month, out_day, out_hour, out_minute);
 
-		finalCheck = isNextInput("ÒÔÉÏĞÅÏ¢ÊÇ·ñÕıÈ·£¬ÕıÈ·ÇëÊäÈë 1£¬ÖØĞÂÊäÈëĞÅÏ¢ÇëÊäÈë 0");
+		finalCheck = isNextInput("ä»¥ä¸Šä¿¡æ¯æ˜¯å¦æ­£ç¡®ï¼Œæ­£ç¡®è¯·è¾“å…¥ 1ï¼Œé‡æ–°è¾“å…¥ä¿¡æ¯è¯·è¾“å…¥ 0");
 
-		// printf("ÒÔÉÏĞÅÏ¢ÊÇ·ñÕıÈ·£¬ÕıÈ·ÇëÊäÈë 1£¬ÖØĞÂÊäÈëĞÅÏ¢ÇëÊäÈë 0\n");
+		// printf("ä»¥ä¸Šä¿¡æ¯æ˜¯å¦æ­£ç¡®ï¼Œæ­£ç¡®è¯·è¾“å…¥ 1ï¼Œé‡æ–°è¾“å…¥ä¿¡æ¯è¯·è¾“å…¥ 0\n");
 		// scanf("%d", &finalCheck);
 		// fflush(stdin);
 		// while ((finalCheck * 1) != 1 || (finalCheck * 1) != 0)
 		// {
-		//     printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ\n");
+		//     printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•\n");
 		//     scanf("%d", &finalCheck);
 		//     fflush(stdin);
 		// }
@@ -401,14 +401,14 @@ struct live_hospital inter_create_live_hospital()
 		}
 		else
 		{
-			printf("ÖØĞÂÊäÈë×¡ÔºĞÅÏ¢\n");
+			printf("é‡æ–°è¾“å…¥ä½é™¢ä¿¡æ¯\n");
 		}
 	}
 	return create_live_hospital(0, 0, 0, 0, 0, 0, 0, 0);
 }
 
-// ½»»¥Éè¼Æ: ÕïÁÆ¼ÇÂ¼ ×é×°ÆğÀ´ ĞèÒªÒ»¸öÒ©ÎïÁĞ±í
-// TODO: Î´²âÊÔ¿ÉĞĞĞÔ
+// äº¤äº’è®¾è®¡: è¯Šç–—è®°å½• ç»„è£…èµ·æ¥ éœ€è¦ä¸€ä¸ªè¯ç‰©åˆ—è¡¨
+// TODO: æœªæµ‹è¯•å¯è¡Œæ€§
 struct treatment inter_create_treatment(struct medicine_list *m_list)
 {
 	struct treatment t;
@@ -417,34 +417,34 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	struct used_Medicine *temp_used_medicine;
 	struct live_hospital temp_live_hospital;
 
-	printf("¼´½«´´½¨Ò»Ìõ treatment!\n");
+	printf("å³å°†åˆ›å»ºä¸€æ¡ treatment!\n");
 
-	// ½»»¥´´½¨
+	// äº¤äº’åˆ›å»º
 	temp_body_check = inter_create_check();
 	temp_used_medicine = inter_create_used_medicine(m_list);
 	temp_live_hospital = inter_create_live_hospital();
 
-	//  ´´½¨Ò½ÁÆ¼ÇÂ¼
+	//  åˆ›å»ºåŒ»ç–—è®°å½•
 	t = create_treatment(temp_body_check, temp_used_medicine, &temp_live_hospital);
-	printf("treatment ´´½¨³É¹¦!\n");
+	printf("treatment åˆ›å»ºæˆåŠŸ!\n");
 
 	return t;
 }
 
-// ½»»¥Éè¼Æ£ºÌí¼ÓÒ»Ìõ¼ÇÂ¼
-// TODO: Î´²âÊÔ¿ÉĞĞĞÔ
+// äº¤äº’è®¾è®¡ï¼šæ·»åŠ ä¸€æ¡è®°å½•
+// TODO: æœªæµ‹è¯•å¯è¡Œæ€§
 int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list)
 {
 	struct patient temp_patient;
 	struct doctor temp_doctor;
 	struct treatment temp_treatment;
 
-	printf("¼´½«´´½¨Ò»Ìõ redcord!\n");
+	printf("å³å°†åˆ›å»ºä¸€æ¡ redcord!\n");
 	temp_patient = inter_craate_patient();
 	temp_doctor = inter_create_doctor();
 	temp_treatment = inter_create_treatment(m_list);
 
 	addOneRecord(r_list, temp_patient, &(temp_doctor), temp_treatment);
-	printf("record ´´½¨³É¹¦!\n");
+	printf("record åˆ›å»ºæˆåŠŸ!\n");
 	return 0;
 }

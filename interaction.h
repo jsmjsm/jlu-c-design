@@ -1,37 +1,37 @@
 #ifndef INTERACTION_H
 #define INTERACTION_H
 
-/*  ½»»¥Éè¼Æ
-	function ¶¼ÊÇÖ±½Ó²Ù×÷£¬È±ÉÙ¶ÔÊäÈëÄÚÈİµÄ¼ì²é
-	ĞèÒªÒ»Ğ©¼ì²éº¯Êı
+/*  äº¤äº’è®¾è®¡
+	function éƒ½æ˜¯ç›´æ¥æ“ä½œï¼Œç¼ºå°‘å¯¹è¾“å…¥å†…å®¹çš„æ£€æŸ¥
+	éœ€è¦ä¸€äº›æ£€æŸ¥å‡½æ•°
 */
 #include "function.h"
 
-// ½»»¥Éè¼Æ£º±£´æ»¼ÕßĞÅÏ¢£¬·µ»ØÒ»¸ö patient ½á¹¹Ìå£¬È»ºóµ÷ÓÃ create_patient(,,,) º¯Êı
+// äº¤äº’è®¾è®¡ï¼šä¿å­˜æ‚£è€…ä¿¡æ¯ï¼Œè¿”å›ä¸€ä¸ª patient ç»“æ„ä½“ï¼Œç„¶åè°ƒç”¨ create_patient(,,,) å‡½æ•°
 struct patient inter_craate_patient();
 
-// ½»»¥Éè¼Æ: ±£´æÒ½ÉúĞÅÏ¢, ·µ»ØÒ»¸öÒ½Éú½á¹¹Ìå
+// äº¤äº’è®¾è®¡: ä¿å­˜åŒ»ç”Ÿä¿¡æ¯, è¿”å›ä¸€ä¸ªåŒ»ç”Ÿç»“æ„ä½“
 struct doctor inter_create_doctor();
 
-// ½»»¥Éè¼Æ£º±£´æÉíÌå¼ì²éĞÅÏ¢£¬·µ»ØÉíÌå¼ì²éÁ´±íµÄÍ·Ö¸Õë
+// äº¤äº’è®¾è®¡ï¼šä¿å­˜èº«ä½“æ£€æŸ¥ä¿¡æ¯ï¼Œè¿”å›èº«ä½“æ£€æŸ¥é“¾è¡¨çš„å¤´æŒ‡é’ˆ
 struct body_Check *inter_create_check();
 
-// ½»»¥Éè¼Æ£º´´½¨Ò»¸ö medicine list
+// äº¤äº’è®¾è®¡ï¼šåˆ›å»ºä¸€ä¸ª medicine list
 struct medicine_list *inter_create_medicine_list();
 
-// ½»»¥Éè¼Æ£º²éÕÒÕâÖÖÒ©ÓĞÃ»ÓĞ
+// äº¤äº’è®¾è®¡ï¼šæŸ¥æ‰¾è¿™ç§è¯æœ‰æ²¡æœ‰
 struct medicine *inter_search_medicine(struct medicine_list *m_list);
 
-// ½»»¥Éè¼Æ£º¸ø»¼ÕßÓÃÒ©£¬´´½¨Ò»¸öÓÃÒ©ÁĞ±í£¬·µ»ØÍ·Ö¸Õë
+// äº¤äº’è®¾è®¡ï¼šç»™æ‚£è€…ç”¨è¯ï¼Œåˆ›å»ºä¸€ä¸ªç”¨è¯åˆ—è¡¨ï¼Œè¿”å›å¤´æŒ‡é’ˆ
 struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list);
 
-// ½»»¥Éè¼Æ£º×¡Ôº¼ÇÂ¼
+// äº¤äº’è®¾è®¡ï¼šä½é™¢è®°å½•
 struct live_hospital inter_create_live_hospital();
 
-// ½»»¥Éè¼Æ: ÕïÁÆ¼ÇÂ¼
+// äº¤äº’è®¾è®¡: è¯Šç–—è®°å½•
 struct treatment inter_create_treatment(struct medicine_list *m_list);
 
-// ½»»¥Éè¼Æ£ºÌí¼ÓÒ»Ìõ¼ÇÂ¼
+// äº¤äº’è®¾è®¡ï¼šæ·»åŠ ä¸€æ¡è®°å½•
 int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list);
 
 #endif

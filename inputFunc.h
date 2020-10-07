@@ -1,32 +1,32 @@
 #ifndef INPUTFUNC_H
 #define INPUTFUNC_H
 
-// ¸ù¾İ±êÌâÍê³É×Ö·û´®ÊäÈë½»»¥
+// æ ¹æ®æ ‡é¢˜å®Œæˆå­—ç¬¦ä¸²è¾“å…¥äº¤äº’
 char *inputCharWithTitle(const char *title);
 
-// ÊäÈëÄêÁä
+// è¾“å…¥å¹´é¾„
 int inputAge();
 
-// ÊäÈëID with title
+// è¾“å…¥ID with title
 int inputID(const char *title);
 
-// Ò½ÉúÉÏ°àÊı×é
+// åŒ»ç”Ÿä¸Šç­æ•°ç»„
 int *inputWork();
 
-// ÊäÈë½ğ¶î
+// è¾“å…¥é‡‘é¢
 int inputPrice(int isPrint);
 
-// ÊäÈëÊıÁ¿
+// è¾“å…¥æ•°é‡
 int inputAmount();
 
-// ÊäÈëInt
-// TODO£ºĞèÒªÓÃËüÀ´×öÒì³£¼ì²é
+// è¾“å…¥Int
+// TODOï¼šéœ€è¦ç”¨å®ƒæ¥åšå¼‚å¸¸æ£€æŸ¥
 //int inputInt(const char *title);
 
-// 01 ÅĞ¶ÏÊÇ·ñ¼ÌĞøÊäÈë
+// 01 åˆ¤æ–­æ˜¯å¦ç»§ç»­è¾“å…¥
 int isNextInput(const char *title);
 
-// ½ğÇ®´¦Àí£ºÊäÈëdouble½ğ¶î£¬¼ÆËãÔª½Ç·Ö£¬·µ»Ø×Ü·Ö£¬ isPrint ´«Èë1 ´ú±í´òÓ¡Ôª½Ç·Ö
+// é‡‘é’±å¤„ç†ï¼šè¾“å…¥doubleé‡‘é¢ï¼Œè®¡ç®—å…ƒè§’åˆ†ï¼Œè¿”å›æ€»åˆ†ï¼Œ isPrint ä¼ å…¥1 ä»£è¡¨æ‰“å°å…ƒè§’åˆ†
 int money_double_yjf(double money, int isPrint);
 
 #endif

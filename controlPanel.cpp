@@ -8,31 +8,31 @@
 #include "interaction.h"
 #pragma warning (disable:4996)
 
-//¶¨Òå¼ÇÂ¼recordµÄÁ´±í
+//å®šä¹‰è®°å½•recordçš„é“¾è¡¨
 struct record_list rl = { NULL };
 struct record_list* rlp = &rl;
-//¶¨Òå¼ÇÂ¼doctorµÄÁ´±í
+//å®šä¹‰è®°å½•doctorçš„é“¾è¡¨
 struct doctor_list dl = { NULL };
 struct doctor_list* dlp = &dl;
-//¶¨Òå¼ÇÂ¼recordÊ±ĞèÒªÓÃµ½µÄdoctorÁ´±í£¬ÎŞÓÃ£¬Ö»ÊÇÓÃÀ´´Õ³Éº¯ÊıËùĞè²ÎÊı
+//å®šä¹‰è®°å½•recordæ—¶éœ€è¦ç”¨åˆ°çš„doctoré“¾è¡¨ï¼Œæ— ç”¨ï¼Œåªæ˜¯ç”¨æ¥å‡‘æˆå‡½æ•°æ‰€éœ€å‚æ•°
 struct doctor_list useless_dl = { NULL };
 struct doctor_list* useless_dlp = &useless_dl;
-//¶¨Òå¼ÇÂ¼medicineµÄÁ´±í
+//å®šä¹‰è®°å½•medicineçš„é“¾è¡¨
 struct medicine_list ml = { NULL };
 struct medicine_list* mlp = &ml;
 
-void mainControl() // Ö÷½çÃæ
+void mainControl() // ä¸»ç•Œé¢
 {
-	// TODO£»Init!
+	// TODOï¼›Init!
 
-	/*ĞèÒª£º³õÊ¼»¯*/
+	/*éœ€è¦ï¼šåˆå§‹åŒ–*/
 
-	/*ĞèÒª£º ¼ÇÂ¼×°ÔØ*/
+	/*éœ€è¦ï¼š è®°å½•è£…è½½*/
 
 	int isEnterMenu = -1;
 	int isExit = 0;
 
-	// -1024 ÍË³ö
+	// -1024 é€€å‡º
 	while (isExit != -1024)
 	{
 		int menuDecision = -1;
@@ -60,21 +60,21 @@ void mainControl() // Ö÷½çÃæ
 
 		fflush(stdin);
 	}
-	printf("ÔÙ¼û!\n");
+	printf("å†è§!\n");
 }
 
-// »¶Ó­½çÃæs
+// æ¬¢è¿ç•Œé¢s
 int spaceWelcome()
 {
 	char decision[1] = "";
 	int isEnterMenu = 0;
 	printf("-----------------------------\n");
-	printf("    »¶Ó­Ê¹ÓÃÕïÁÆ¹ÜÀíÏµÍ³    \n");
-	printf("×÷Õß£º201818xx-xxx\n");
+	printf("    æ¬¢è¿ä½¿ç”¨è¯Šç–—ç®¡ç†ç³»ç»Ÿ    \n");
+	printf("ä½œè€…ï¼š201818xx-xxx\n");
 	printf("-----------------------------\n");
 	printf("\n");
 
-	printf("ŞôÈÎÒâ¼ü½øÈë¹¦ÄÜ²Ëµ¥£¬ÊäÈë q ÍË³öÏµÍ³\n");
+	printf("æ‘ä»»æ„é”®è¿›å…¥åŠŸèƒ½èœå•ï¼Œè¾“å…¥ q é€€å‡ºç³»ç»Ÿ\n");
 
 	scanf("%c", &decision[0]);
 
@@ -86,51 +86,51 @@ int spaceWelcome()
 		break;
 	default:
 		isEnterMenu = 1;
-		printf("Ìø×ªµ½²Ëµ¥ÖĞ....\n");
+		printf("è·³è½¬åˆ°èœå•ä¸­....\n");
 		break;
 	}
 	return isEnterMenu;
 }
 
-// ²Ëµ¥
+// èœå•
 int spaceMenu()
 {
 	int decision = -1;
 	printf("-----------------------------\n");
-	printf("           ¹¦ÄÜ²Ëµ¥ \n");
-	printf("×÷Õß£º201818xx-xxx\n");
+	printf("           åŠŸèƒ½èœå• \n");
+	printf("ä½œè€…ï¼š201818xx-xxx\n");
 	printf("-----------------------------\n");
 	printf("\n");
 
-	printf("ÇëÊäÈëÄãÏëÊ¹ÓÃµÄ¹¦ÄÜĞòºÅ\n");
+	printf("è¯·è¾“å…¥ä½ æƒ³ä½¿ç”¨çš„åŠŸèƒ½åºå·\n");
 	printf("\n");
 
-	printf("> 1. ´ÓÎÄ¼şµ¼ÈëÕïÁÆ¼ÇÂ¼\n");
-	printf("> 2. Â¼ÈëÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-	printf("> 3. ĞŞ¸ÄÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-	printf("> 4. É¾³ıÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-	printf("> 5. ´òÓ¡Ò»Î»Ò½ÉúµÄÕïÁÆĞÅÏ¢\n");
-	printf("> 6. ´òÓ¡»¼ÕßµÄÀúÊ·ÕïÁÆĞÅÏ¢\n");
-	printf("> 7. Í³¼ÆÒ½ÔºÄ¿Ç°ÓªÒµ¶î\n");
-	printf("> 8. Éú³Éµ±Ç°×¡Ôº ±¨±í\n");
-	printf("> 9. Í³¼ÆÒ½Éú³öÕïÇé¿ö¼°·±Ã¦³Ì¶È\n");
-	printf("> 10. Êä³öÄ³Ê±¼ä¶ÎµÄÕïÁÆĞÅÏ¢\n");
-	printf("> 11. ±£´æÏµÍ³ĞÅÏ¢ÎÄ¼ş\n");
-	printf("> 0. ·µ»Ø»¶Ó­½çÃæ\n");
+	printf("> 1. ä»æ–‡ä»¶å¯¼å…¥è¯Šç–—è®°å½•\n");
+	printf("> 2. å½•å…¥ä¸€æ¡è¯Šç–—è®°å½•\n");
+	printf("> 3. ä¿®æ”¹ä¸€æ¡è¯Šç–—è®°å½•\n");
+	printf("> 4. åˆ é™¤ä¸€æ¡è¯Šç–—è®°å½•\n");
+	printf("> 5. æ‰“å°ä¸€ä½åŒ»ç”Ÿçš„è¯Šç–—ä¿¡æ¯\n");
+	printf("> 6. æ‰“å°æ‚£è€…çš„å†å²è¯Šç–—ä¿¡æ¯\n");
+	printf("> 7. ç»Ÿè®¡åŒ»é™¢ç›®å‰è¥ä¸šé¢\n");
+	printf("> 8. ç”Ÿæˆå½“å‰ä½é™¢ æŠ¥è¡¨\n");
+	printf("> 9. ç»Ÿè®¡åŒ»ç”Ÿå‡ºè¯Šæƒ…å†µåŠç¹å¿™ç¨‹åº¦\n");
+	printf("> 10. è¾“å‡ºæŸæ—¶é—´æ®µçš„è¯Šç–—ä¿¡æ¯\n");
+	printf("> 11. ä¿å­˜ç³»ç»Ÿä¿¡æ¯æ–‡ä»¶\n");
+	printf("> 0. è¿”å›æ¬¢è¿ç•Œé¢\n");
 
 	scanf("%d", &decision);
 	decision = (int)decision;
 	while (decision < 0 || decision > 11)
 	{
-		printf("ÊäÈë´íÎó£¡ÇëÖØÊÔ£¡\n");
-		fflush(stdin); //Çå¿Õ»º³åÇø
+		printf("è¾“å…¥é”™è¯¯ï¼è¯·é‡è¯•ï¼\n");
+		fflush(stdin); //æ¸…ç©ºç¼“å†²åŒº
 		scanf("%d", &decision);
 	}
-	printf(">> debug: ¾ö¶¨:  %d\n", decision);
+	printf(">> debug: å†³å®š:  %d\n", decision);
 	return decision;
 }
 
-// ¸ù¾İmenu¾ö¶¨²Ù×÷
+// æ ¹æ®menuå†³å®šæ“ä½œ
 int operateMenu(int menuDecision)
 {
 	char ** record_array = (char**)malloc(10000 * sizeof(char*));
@@ -166,39 +166,39 @@ int operateMenu(int menuDecision)
 	switch (menuDecision)
 	{
 	case 0:
-		fflush(stdin); // Çå¿Õ»º³åÇø
+		fflush(stdin); // æ¸…ç©ºç¼“å†²åŒº
 		break;
 	case 1:
-		printf("1. ´ÓÎÄ¼şµ¼ÈëÕïÁÆ¼ÇÂ¼\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("1. ä»æ–‡ä»¶å¯¼å…¥è¯Šç–—è®°å½•\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
-		  //*************************record¼ÇÂ¼************************
+		  //*************************recordè®°å½•************************
 		readin_record(record_array);
-		flag = 1;//ÅĞ¶ÏÖµ
-		posi = 0;//ÓÃÓÚÈ·¶¨µ±Ç°ÔÚÊı×éµÄÄÄÒ»ĞĞ
+		flag = 1;//åˆ¤æ–­å€¼
+		posi = 0;//ç”¨äºç¡®å®šå½“å‰åœ¨æ•°ç»„çš„å“ªä¸€è¡Œ
 		while (flag) {
 			flag = 0;
-			struct patient pa = create_patient(record_array[posi], atoi(record_array[posi + 1]), atoi(record_array[posi + 2]));//²¡ÈË
-			posi += 3;//Êı×éĞĞÊı+3
+			struct patient pa = create_patient(record_array[posi], atoi(record_array[posi + 1]), atoi(record_array[posi + 2]));//ç—…äºº
+			posi += 3;//æ•°ç»„è¡Œæ•°+3
 
-			int temp_visit[8] = { 0 };//Ò½Éú
+			int temp_visit[8] = { 0 };//åŒ»ç”Ÿ
 			temp_visit[0] = atoi(record_array[posi + 4]);
 			struct doctor* dop = create_doctor(record_array[posi], record_array[posi + 1], record_array[posi + 2], atoi(record_array[posi + 3]), temp_visit, useless_dlp);
-			posi += 5;//Êı×éĞĞÊı+5
+			posi += 5;//æ•°ç»„è¡Œæ•°+5
 
-			int numOFbodycheck = atoi(record_array[posi]);//Ìå¼ìÊıÁ¿
-			struct body_Check* bc_cur = NULL;//µ±Ç°Ìå¼ì½Úµã
-			struct body_Check* bc_pre = NULL;//Ìå¼ìÇ°Çı½Úµã
-			struct body_Check* bc_head = NULL;//Í·½áµã
-			for (int i = 0; i < numOFbodycheck; i++)//Ìå¼ì
+			int numOFbodycheck = atoi(record_array[posi]);//ä½“æ£€æ•°é‡
+			struct body_Check* bc_cur = NULL;//å½“å‰ä½“æ£€èŠ‚ç‚¹
+			struct body_Check* bc_pre = NULL;//ä½“æ£€å‰é©±èŠ‚ç‚¹
+			struct body_Check* bc_head = NULL;//å¤´ç»“ç‚¹
+			for (int i = 0; i < numOFbodycheck; i++)//ä½“æ£€
 			{
-				if (i == 0)//´´½¨Ìå¼ìÁ´±íÍ·
+				if (i == 0)//åˆ›å»ºä½“æ£€é“¾è¡¨å¤´
 				{
 					bc_cur = create_check(bc_pre, record_array[posi + 1], atoi(record_array[posi + 2]));
-					bc_head = bc_cur;//È·¶¨Í·½áµã
+					bc_head = bc_cur;//ç¡®å®šå¤´ç»“ç‚¹
 					posi += 3;
 				}
-				else//·Ç±íÍ·
+				else//éè¡¨å¤´
 				{
 					bc_pre = bc_cur;
 					bc_cur = create_check(bc_pre, record_array[posi], atoi(record_array[posi + 1]));
@@ -206,29 +206,29 @@ int operateMenu(int menuDecision)
 				}
 			}
 
-			int numOFusemedicine = atoi(record_array[posi]);//ÓÃÒ©ÊıÁ¿
-			struct used_Medicine* um_cur = NULL;//µ±Ç°ÓÃÒ©½Úµã
-			struct used_Medicine* um_pre = NULL;//ÓÃÒ©Ç°Çı½Úµã
-			struct used_Medicine* um_head = NULL;//Í·½áµã
-			for (int i = 0; i < numOFusemedicine; i++)//ÓÃÒ©
+			int numOFusemedicine = atoi(record_array[posi]);//ç”¨è¯æ•°é‡
+			struct used_Medicine* um_cur = NULL;//å½“å‰ç”¨è¯èŠ‚ç‚¹
+			struct used_Medicine* um_pre = NULL;//ç”¨è¯å‰é©±èŠ‚ç‚¹
+			struct used_Medicine* um_head = NULL;//å¤´ç»“ç‚¹
+			for (int i = 0; i < numOFusemedicine; i++)//ç”¨è¯
 			{
-				if (i == 0)//´´½¨ÓÃÒ©Á´±íÍ·
+				if (i == 0)//åˆ›å»ºç”¨è¯é“¾è¡¨å¤´
 				{
 					struct medicine* m;
-					m = (struct medicine*)malloc(sizeof(struct medicine));//Éú³ÉÒ©Æ·
-					strcpy(m->name, record_array[posi + 1]);//Ò©Æ·Ãû³Æ
+					m = (struct medicine*)malloc(sizeof(struct medicine));//ç”Ÿæˆè¯å“
+					strcpy(m->name, record_array[posi + 1]);//è¯å“åç§°
 					m->unit_Price = atoi(record_array[posi + 2]);
 					m->next = NULL;
 					um_cur = create_use_m(um_pre, m, atoi(record_array[posi + 3]));
 					um_head = um_cur;
 					posi += 4;
 				}
-				else//·Ç±íÍ·
+				else//éè¡¨å¤´
 				{
 					um_pre = um_cur;
 					struct medicine* m;
-					m = (struct medicine*)malloc(sizeof(struct medicine));//Éú³ÉÒ©Æ·
-					strcpy(m->name, record_array[posi]);//Ò©Æ·Ãû³Æ
+					m = (struct medicine*)malloc(sizeof(struct medicine));//ç”Ÿæˆè¯å“
+					strcpy(m->name, record_array[posi]);//è¯å“åç§°
 					m->unit_Price = atoi(record_array[posi + 1]);
 					m->next = NULL;
 					um_cur = create_use_m(um_pre, m, atoi(record_array[posi + 2]));
@@ -236,27 +236,27 @@ int operateMenu(int menuDecision)
 				}
 			}
 
-			//×¡ÔºĞÅÏ¢
+			//ä½é™¢ä¿¡æ¯
 			struct live_hospital lh = create_live_hospital(atoi(record_array[posi]), atoi(record_array[posi + 1]), atoi(record_array[posi + 2]), atoi(record_array[posi + 3]),
 				atoi(record_array[posi + 4]), atoi(record_array[posi + 5]), atoi(record_array[posi + 6]), atoi(record_array[posi + 7]));
 			posi += 8;
 			struct live_hospital* lhp = &lh;
 
-			//Éú³Étreatment
+			//ç”Ÿæˆtreatment
 			struct treatment tm;
 			tm = create_treatment(bc_head, um_head, lhp);
 
-			//Éú³Érecord
+			//ç”Ÿæˆrecord
 			addOneRecord(rlp, pa, dop, tm);
 
-			if (strlen(record_array[posi]) > 0)//ÅĞ¶ÏÊÇ·ñµ±Ç°recordÊÇ·ñÎª×îºóÒ»Ìõ
+			if (strlen(record_array[posi]) > 0)//åˆ¤æ–­æ˜¯å¦å½“å‰recordæ˜¯å¦ä¸ºæœ€åä¸€æ¡
 				flag = 1;
 		}
 
-		//******************doctorĞÅÏ¢******************
+		//******************doctorä¿¡æ¯******************
 		readin_doctor(doctor_array);
-		flag = 1;//ÅĞ¶ÏÖµ
-		posi = 0;//ÓÃÓÚÈ·¶¨µ±Ç°ÔÚÊı×éµÄÄÄÒ»ĞĞ
+		flag = 1;//åˆ¤æ–­å€¼
+		posi = 0;//ç”¨äºç¡®å®šå½“å‰åœ¨æ•°ç»„çš„å“ªä¸€è¡Œ
 		while (flag) {
 			flag = 0;
 			int temp_visit[8];
@@ -265,84 +265,84 @@ int operateMenu(int menuDecision)
 			create_doctor(doctor_array[posi], doctor_array[posi + 1], doctor_array[posi + 2], atoi(doctor_array[posi + 3]), temp_visit, dlp);
 			posi += 12;
 
-			if (strlen(doctor_array[posi]) > 0)//ÅĞ¶ÏÊÇ·ñµ±Ç°recordÊÇ·ñÎª×îºóÒ»Ìõ
+			if (strlen(doctor_array[posi]) > 0)//åˆ¤æ–­æ˜¯å¦å½“å‰recordæ˜¯å¦ä¸ºæœ€åä¸€æ¡
 				flag = 1;
 		}
 
-		//******************medicine_listĞÅÏ¢******************
+		//******************medicine_listä¿¡æ¯******************
 		readin_medicine(medicine_array);
-		flag = 1;//ÅĞ¶ÏÖµ
-		posi = 0;//ÓÃÓÚÈ·¶¨µ±Ç°ÔÚÊı×éµÄÄÄÒ»ĞĞ
+		flag = 1;//åˆ¤æ–­å€¼
+		posi = 0;//ç”¨äºç¡®å®šå½“å‰åœ¨æ•°ç»„çš„å“ªä¸€è¡Œ
 		while (flag) {
 			flag = 0;
 			add_to_medicine_list(mlp, medicine_array[posi], atoi(medicine_array[posi + 1]));
 			posi += 2;
 
-			if (strlen(medicine_array[posi]) > 0)//ÅĞ¶ÏÊÇ·ñµ±Ç°recordÊÇ·ñÎª×îºóÒ»Ìõ
+			if (strlen(medicine_array[posi]) > 0)//åˆ¤æ–­æ˜¯å¦å½“å‰recordæ˜¯å¦ä¸ºæœ€åä¸€æ¡
 				flag = 1;
 		}
 
 		break;
 	case 2:
-		printf("2. Â¼ÈëÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("2. å½•å…¥ä¸€æ¡è¯Šç–—è®°å½•\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 		inter_add_one_record(rlp, mlp);
 		break;
 	case 3:
-		printf("3. ĞŞ¸ÄÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("3. ä¿®æ”¹ä¸€æ¡è¯Šç–—è®°å½•\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 4:
-		printf("4. É¾³ıÒ»ÌõÕïÁÆ¼ÇÂ¼\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("4. åˆ é™¤ä¸€æ¡è¯Šç–—è®°å½•\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 5:
-		printf("5. ´òÓ¡Ò»Î»Ò½ÉúµÄÕïÁÆĞÅÏ¢\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("5. æ‰“å°ä¸€ä½åŒ»ç”Ÿçš„è¯Šç–—ä¿¡æ¯\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 		break;
 	case 6:
-		printf("6. ´òÓ¡»¼ÕßµÄÀúÊ·ÕïÁÆĞÅÏ¢\n");
-		searchByPatient(rlp, "Ğ¡Ã÷", 20);
+		printf("6. æ‰“å°æ‚£è€…çš„å†å²è¯Šç–—ä¿¡æ¯\n");
+		searchByPatient(rlp, "å°æ˜", 20);
 		break;
 	case 7:
-		printf("7. Í³¼ÆÒ½ÔºÄ¿Ç°ÓªÒµ¶î\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("7. ç»Ÿè®¡åŒ»é™¢ç›®å‰è¥ä¸šé¢\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 8:
-		printf("8. Éú³Éµ±Ç°×¡Ôº ±¨±í\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("8. ç”Ÿæˆå½“å‰ä½é™¢ æŠ¥è¡¨\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 9:
-		printf("9. Í³¼ÆÒ½Éú³öÕïÇé¿ö¼°·±Ã¦³Ì¶È\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("9. ç»Ÿè®¡åŒ»ç”Ÿå‡ºè¯Šæƒ…å†µåŠç¹å¿™ç¨‹åº¦\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 10:
-		printf("10. Êä³öÄ³Ê±¼ä¶ÎµÄÕïÁÆĞÅÏ¢\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("10. è¾“å‡ºæŸæ—¶é—´æ®µçš„è¯Šç–—ä¿¡æ¯\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 		break;
 	case 11:
-		printf("11. ±£´æÏµÍ³ĞÅÏ¢ÎÄ¼ş\n");
-		/*TODO: ½Ó¿Ú½ÓÈë*/
+		printf("11. ä¿å­˜ç³»ç»Ÿä¿¡æ¯æ–‡ä»¶\n");
+		/*TODO: æ¥å£æ¥å…¥*/
 
 
-		//***********************±£´ærecord***********************
+		//***********************ä¿å­˜record***********************
 		writeout_record(rlp->head);
 
-		//***********************±£´ædoctor***********************
+		//***********************ä¿å­˜doctor***********************
 		writeout_doctor(dl);
 
-		//***********************±£´æmedicine***********************
+		//***********************ä¿å­˜medicine***********************
 		writeout_medicine(ml);
 
 		break;
 	default:
-		printf("debug:ERR: ´«²Î´íÎó\n");
+		printf("debug:ERR: ä¼ å‚é”™è¯¯\n");
 		break;
 	}
 	return 0;

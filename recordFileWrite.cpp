@@ -8,81 +8,81 @@
 
 void writeout_record(struct record* head)
 {
-	struct record* temp_record = head;//ÓÃÓÚÔİÊ±±£´æµ±Ç°recordÖ¸Õë
-	if (head == NULL)//ÅĞ¶ÏÍ·Ö¸Õë
+	struct record* temp_record = head;//ç”¨äºæš‚æ—¶ä¿å­˜å½“å‰recordæŒ‡é’ˆ
+	if (head == NULL)//åˆ¤æ–­å¤´æŒ‡é’ˆ
 	{
-		printf("recordÁ´±íÍ·Ö¸ÕëÎª¿Õ£¡");
+		printf("recordé“¾è¡¨å¤´æŒ‡é’ˆä¸ºç©ºï¼");
 		return;
 	}
 	else {
 		FILE* filewrite = fopen("txt\\record.txt", "w");
-		char intTOchar[16] = { 0 };//ÓÃÓÚ½«intÀàĞÍ×ª»»Îªchar*
+		char intTOchar[16] = { 0 };//ç”¨äºå°†intç±»å‹è½¬æ¢ä¸ºchar*
 		char buf[128] = { 0 };
 		if (filewrite == NULL)
 		{
-			printf("Ğ´³öÎÄ¼şÖ¸ÕëÎª¿Õ£¡\n");
+			printf("å†™å‡ºæ–‡ä»¶æŒ‡é’ˆä¸ºç©ºï¼\n");
 			return;
 		}
 		else {
 			while (1)
 			{
-				struct body_Check* temp_bc = temp_record->tm.bc;//ÓÃÓÚÔİÊ±´æ·Åµ±Ç°bcÖ¸Õë
-				struct used_Medicine* temp_um = temp_record->tm.um;//ÓÃÓÚÔİÊ±´æ·Åµ±Ç°umÖ¸Õë
-				fputs(temp_record->pa.name, filewrite); fputs("\n", filewrite);//Ãû×Ö
+				struct body_Check* temp_bc = temp_record->tm.bc;//ç”¨äºæš‚æ—¶å­˜æ”¾å½“å‰bcæŒ‡é’ˆ
+				struct used_Medicine* temp_um = temp_record->tm.um;//ç”¨äºæš‚æ—¶å­˜æ”¾å½“å‰umæŒ‡é’ˆ
+				fputs(temp_record->pa.name, filewrite); fputs("\n", filewrite);//åå­—
 				itoa(temp_record->pa.age, intTOchar, 10);
 				fputs(intTOchar, filewrite); fputs("\n", filewrite);//age
 				itoa(temp_record->pa.register_id, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//¹ÒºÅ
-				fputs(temp_record->doc->name, filewrite); fputs("\n", filewrite);//Ò½Éúname
-				fputs(temp_record->doc->level, filewrite); fputs("\n", filewrite);//µÈ¼¶
-				fputs(temp_record->doc->department, filewrite); fputs("\n", filewrite);//Ò½Éú¿ÆÊÒ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æŒ‚å·
+				fputs(temp_record->doc->name, filewrite); fputs("\n", filewrite);//åŒ»ç”Ÿname
+				fputs(temp_record->doc->level, filewrite); fputs("\n", filewrite);//ç­‰çº§
+				fputs(temp_record->doc->department, filewrite); fputs("\n", filewrite);//åŒ»ç”Ÿç§‘å®¤
 				itoa(temp_record->doc->worker_id, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ò½Éú¹¤ºÅ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//åŒ»ç”Ÿå·¥å·
 				itoa(temp_record->doc->visit[0], intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ò½ÉúÉÏ°àÌìÊı
-				//¼ì²éÁ÷³Ì
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//åŒ»ç”Ÿä¸Šç­å¤©æ•°
+				//æ£€æŸ¥æµç¨‹
 				itoa(temp_record->tm.check_num, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//¼ì²éÊıÁ¿
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ£€æŸ¥æ•°é‡
 				for (int i = 0; i < temp_record->tm.check_num; i++)
 				{
 					fputs(temp_bc->name, filewrite); fputs("\n", filewrite);
 					itoa(temp_bc->price, intTOchar, 10);
-					fputs(intTOchar, filewrite); fputs("\n", filewrite);//¼ì²é¼Û¸ñ
+					fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ£€æŸ¥ä»·æ ¼
 					if (temp_bc->next != NULL)
 						temp_bc = temp_bc->next;
 				}
-				//¿ªÒ©Á÷³Ì
+				//å¼€è¯æµç¨‹
 				itoa(temp_record->tm.medicine_num, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//¿ªÒ©ÊıÁ¿
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//å¼€è¯æ•°é‡
 				for (int i = 0; i < temp_record->tm.medicine_num; i++)
 				{
 					fputs(temp_um->use_m->name, filewrite); fputs("\n", filewrite);
 					itoa(temp_um->use_m->unit_Price, intTOchar, 10);
-					fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ò©Æ·µ¥¼Û
+					fputs(intTOchar, filewrite); fputs("\n", filewrite);//è¯å“å•ä»·
 					itoa(temp_um->amount, intTOchar, 10);
-					fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ò©Æ·ÊıÁ¿
+					fputs(intTOchar, filewrite); fputs("\n", filewrite);//è¯å“æ•°é‡
 					if (temp_um->next != NULL)
 						temp_um = temp_um->next;
 				}
-				//×¡ÔºĞÅÏ¢
+				//ä½é™¢ä¿¡æ¯
 				itoa(temp_record->tm.lh->in_time.month, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//ÔÂ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æœˆ
 				itoa(temp_record->tm.lh->in_time.day, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//ÈÕ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ—¥
 				itoa(temp_record->tm.lh->in_time.hour, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ê±
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ—¶
 				itoa(temp_record->tm.lh->in_time.minute, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//·Ö
-				//³öÔºĞÅÏ¢
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//åˆ†
+				//å‡ºé™¢ä¿¡æ¯
 				itoa(temp_record->tm.lh->out_time.month, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//ÔÂ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æœˆ
 				itoa(temp_record->tm.lh->out_time.day, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//ÈÕ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ—¥
 				itoa(temp_record->tm.lh->out_time.hour, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//Ê±
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//æ—¶
 				itoa(temp_record->tm.lh->out_time.minute, intTOchar, 10);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//·Ö
-				//´òÓ¡Íê±Ï
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//åˆ†
+				//æ‰“å°å®Œæ¯•
 				if (temp_record->next == NULL)
 					return;
 				else

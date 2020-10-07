@@ -4,81 +4,81 @@
 #include <string.h>
 #include "inputFunc.h"
 
-// ¸ù¾İ±êÌâÍê³É×Ö·û´®ÊäÈë½»»¥
+// æ ¹æ®æ ‡é¢˜å®Œæˆå­—ç¬¦ä¸²è¾“å…¥äº¤äº’
 char *inputCharWithTitle(const char *title)
 {
 	static char str[20];
 	char temp[20];
-	printf("ÇëÊäÈë %s µÄÄÚÈİ\n", title);
+	printf("è¯·è¾“å…¥ %s çš„å†…å®¹\n", title);
 	scanf("%s", temp);
 	fflush(stdin);
 	strcpy(str, temp);
-	printf("ÏîÄ¿: %s µÄÄÚÈİÊÇ %s\n", title, str);
+	printf("é¡¹ç›®: %s çš„å†…å®¹æ˜¯ %s\n", title, str);
 	return str;
 }
 
-// ÊäÈëÄêÁä
+// è¾“å…¥å¹´é¾„
 int inputAge()
 {
 	int age = 0;
-	printf("ÇëÊäÈëÄêÁä\n");
+	printf("è¯·è¾“å…¥å¹´é¾„\n");
 	scanf("%d", &age);
 	fflush(stdin);
-	// ÄêÁä¼ì²é
+	// å¹´é¾„æ£€æŸ¥
 	while (age < 1 || age > 150)
 	{
-		printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ\n");
+		printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•\n");
 		scanf("%d", &age);
 		fflush(stdin);
 	}
-	printf("ÄêÁä: %d\n", age);
+	printf("å¹´é¾„: %d\n", age);
 	return age;
 }
 
-// ÊäÈëID
+// è¾“å…¥ID
 int inputID(const char *title)
 {
 	int id = 0;
-	printf("ÇëÊäÈë %s\n", title);
+	printf("è¯·è¾“å…¥ %s\n", title);
 	scanf("%d", &id);
 	fflush(stdin);
-	printf("ÊäÈë³É¹¦ %s: %d\n", title, id);
+	printf("è¾“å…¥æˆåŠŸ %s: %d\n", title, id);
 	return id;
 }
 
-// Ò½ÉúÉÏ°à
+// åŒ»ç”Ÿä¸Šç­
 int *inputWork()
 {
 	static int work[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 	int totalDays = 0;
-	// ÉèÖÃ×ÜÌìÊı
+	// è®¾ç½®æ€»å¤©æ•°
 	do {
-		printf("ÇëÊäÈë¸ÃÒ½ÉúÒ»ÖÜÉÏ°à×ÜÌìÊı:\n");
+		printf("è¯·è¾“å…¥è¯¥åŒ»ç”Ÿä¸€å‘¨ä¸Šç­æ€»å¤©æ•°:\n");
 		scanf("%d", &totalDays);
 	} while (totalDays > 7 || totalDays < 1);
 	work[0] = totalDays;
 	fflush(stdin);
-	// ÄÄÒ»ÌìÉÏ°à
+	// å“ªä¸€å¤©ä¸Šç­
 	for (int i = 1; i <= totalDays; i++)
 	{
 		int tempWork = 0;
-		// ÖÜ¼¸ÉÏ°à
-		printf("Ò½ÉúÔÚÒ»ÖÜÖĞµÚ %d ÌìÉÏ°àÊÇÖÜ¼¸£¿ (1-7)\n", i);
+		// å‘¨å‡ ä¸Šç­
+		printf("åŒ»ç”Ÿåœ¨ä¸€å‘¨ä¸­ç¬¬ %d å¤©ä¸Šç­æ˜¯å‘¨å‡ ï¼Ÿ (1-7)\n", i);
 		scanf("%d", &tempWork);
 
-		// ¼ì²éÒì³£
+		// æ£€æŸ¥å¼‚å¸¸
 		fflush(stdin);
 		while (tempWork >= 8 || tempWork < 1 || work[tempWork] == 1)
 		{
-			printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ\n");
+			printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•\n");
 			scanf("%d", &tempWork);
 			fflush(stdin);
 		}
-		// ±ê¼ÇÉÏ°à
+		// æ ‡è®°ä¸Šç­
 		work[tempWork] = 1;
 	}
 
-	// debug£º Êä³öÉÏ°àÊı×é
+	// debugï¼š è¾“å‡ºä¸Šç­æ•°ç»„
 	// printf("work DEBUG: ");
 	// for (int i = 0; i <= 7; i++)
 	// {
@@ -88,38 +88,38 @@ int *inputWork()
 	return work;
 }
 
-// ÊäÈë¼ÛÇ®
+// è¾“å…¥ä»·é’±
 int inputPrice(int isPrint)
 {
 	/* Old Version
 	int price = 0;
-	printf("ÇëÊäÈë½ğ¶î\n");
+	printf("è¯·è¾“å…¥é‡‘é¢\n");
 	scanf("%d", &price);
 	fflush(stdin);
-	printf("ÊäÈë³É¹¦£¬½ğ¶î: %d\n", price);
+	printf("è¾“å…¥æˆåŠŸï¼Œé‡‘é¢: %d\n", price);
 	return price;
 	*/
 
 	double price = 0;
 	int valueAsFen = -1;
-	printf("ÇëÊäÈë½ğ¶î,£¨ÀıÈç£º12.34 Ôª£©\n");
+	printf("è¯·è¾“å…¥é‡‘é¢,ï¼ˆä¾‹å¦‚ï¼š12.34 å…ƒï¼‰\n");
 	scanf("%lf", &price);
 	valueAsFen = money_double_yjf(price, isPrint);
 	return valueAsFen;
 }
 
-// ÊäÈëÊıÁ¿
+// è¾“å…¥æ•°é‡
 int inputAmount()
 {
 	int amount = 0;
-	printf("ÇëÊäÈëÊıÁ¿\n");
+	printf("è¯·è¾“å…¥æ•°é‡\n");
 	scanf("%d", &amount);
 	fflush(stdin);
-	printf("ÊäÈë³É¹¦£¬ÊıÁ¿: %d\n", amount);
+	printf("è¾“å…¥æˆåŠŸï¼Œæ•°é‡: %d\n", amount);
 	return amount;
 }
 
-// 01 ÅĞ¶ÏÊÇ·ñ¼ÌĞøÊäÈë
+// 01 åˆ¤æ–­æ˜¯å¦ç»§ç»­è¾“å…¥
 int isNextInput(const char *title)
 {
 	int result = -1;
@@ -144,7 +144,7 @@ int isNextInput(const char *title)
 			result = 0;
 			break;
 		default:
-			printf("ÊäÈëÓĞÎó£¬ÇëÖØÊÔ\n");
+			printf("è¾“å…¥æœ‰è¯¯ï¼Œè¯·é‡è¯•\n");
 			break;
 		}
 		//printf("result:%d\n", result);
@@ -153,7 +153,7 @@ int isNextInput(const char *title)
 	return result;
 }
 
-// ½ğÇ®´¦Àí£ºÊäÈëdouble½ğ¶î£¬¼ÆËãÔª½Ç·Ö£¬·µ»Ø×Ü·İ
+// é‡‘é’±å¤„ç†ï¼šè¾“å…¥doubleé‡‘é¢ï¼Œè®¡ç®—å…ƒè§’åˆ†ï¼Œè¿”å›æ€»ä»½
 int money_double_yjf(double money, int isPrint)
 {
 	double rawValue = money;
@@ -188,7 +188,7 @@ int money_double_yjf(double money, int isPrint)
 	switch (isPrint)
 	{
 	case 1:
-		printf("½ğ¶î: %dÔª %d½Ç %d·Ö\n", yuan, jiao, fen);
+		printf("é‡‘é¢: %då…ƒ %dè§’ %dåˆ†\n", yuan, jiao, fen);
 		break;
 	default:
 		break;

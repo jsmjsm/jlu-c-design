@@ -1,13 +1,13 @@
 #ifndef CONTROLPANEL_H
 #define CONTROLPANEL_H
 
-// ×Ü¿ØÖÆ
+// æ€»æ§åˆ¶
 void mainControl();
 
-// »¶Ó­½çÃæ
+// æ¬¢è¿ç•Œé¢
 int spaceWelcome();
 
-// ²Ëµ¥
+// èœå•
 int spaceMenu();
 int operateMenu(int menuDecision);
 
