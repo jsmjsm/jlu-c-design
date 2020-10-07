@@ -129,9 +129,10 @@ struct body_Check *inter_create_check()
 struct medicine_list *inter_create_medicine_list()
 {
     // init
-    struct medicine_list *m_list;
+    // TODO： Fix this problem
+    struct medicine_list *m_list = (struct medicine_list *)malloc(sizeof(struct medicine_list));
     struct medicine *m_head = m_list->head;
-    m_list = (struct medicine_list *)malloc(sizeof(struct medicine_list));
+    // m_list = (struct medicine_list *)malloc(sizeof(struct medicine_list));
     m_list->head = NULL;
     // temp var
     int isNext = 1;
@@ -263,15 +264,17 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 // TODO: 未测试可行性
 struct live_hospital inter_create_live_hospital()
 {
-    struct live_hospital live;
-    int in_month;
-    int in_day;
-    int in_hour;
-    int in_minute;
-    int out_month;
-    int out_day;
-    int out_hour;
-    int out_minute;
+    //     struct medicine_list *m_list = (struct medicine_list *)malloc(sizeof(struct medicine_list));
+
+    struct live_hospital live = {{0, 0, 0, 0}, {0, 0, 0, 0}, 0, 0};
+    int in_month = 0;
+    int in_day = 0;
+    int in_hour = 0;
+    int in_minute = 0;
+    int out_month = 0;
+    int out_day = 0;
+    int out_hour = 0;
+    int out_minute = 0;
     int finalCheck = 0;
 
     while (finalCheck == 0)
