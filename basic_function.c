@@ -232,7 +232,7 @@ struct live_hospital *create_live_hospital(int in_month, int in_day, int in_hour
 	return new_live;
 }
 
-// bool 改成了 int 1 代表true 0 代表false
+// bool 改成了 int 1 代表 true ; 0 代表false
 int register_id_valid(struct record_list *list, int id)
 { //检查是否已有此挂号
 	struct record *temp;
@@ -241,18 +241,18 @@ int register_id_valid(struct record_list *list, int id)
 	{
 		if (temp->pa.register_id == id)
 		{
-			return 0;
+			return 1;
 		}
 		temp = temp->next;
 	}
-	return 1;
+	return 0;
 }
 
 int create_register_id(struct record_list *list, struct time in_time)
 { //自动生成挂号
 	int register_id = 0;
 	register_id += in_time.month * 100000 + in_time.day * 1000 + 1;
-	while (register_id_valid(list, register_id) != 1)
+	while (register_id_valid(list, register_id) == 1)
 	{
 		register_id++;
 	}

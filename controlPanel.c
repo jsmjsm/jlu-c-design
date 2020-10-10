@@ -302,7 +302,6 @@ int operateMenu(int menuDecision)
 		break;
 	case 2:
 		printf("2. 录入一条诊疗记录\n");
-
 		inter_add_one_record(rlp, mlp, dlp);
 		break;
 	case 3:
@@ -313,7 +312,7 @@ int operateMenu(int menuDecision)
 	case 4:
 		printf("4. 删除一条诊疗记录\n");
 		/*TODO: 接口接入*/
-
+		inter_delete_one_record(rlp);
 		break;
 	case 5:
 		printf("5. 打印一位医生的诊疗信息\n");
