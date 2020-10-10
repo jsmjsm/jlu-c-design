@@ -327,8 +327,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 8:
 		printf("8. 生成当前住院的报表\n");
-		/*TODO: 接口接入8*/
-
+		inter_create_live_in_hospital(rlp);
 		break;
 	case 9:
 		printf("9. 统计医生出诊情况及繁忙程度\n");
