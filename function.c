@@ -86,6 +86,7 @@ int searchByPatient(struct record_list *list, const char name[20], int age)
 int printRecordDuringTime(struct record_list *list, int start_m, int start_d, int end_m, int end_d)
 {
 	// !!! BUG !!! 这部分的代码有 bug
+	// 在程序没有输入任何数据的时候，运行功能 10 ，到这个函数的时候程序会崩溃
 	struct record *temp;
 	temp = list->head;
 	int time = temp->pa.register_id / 1000;

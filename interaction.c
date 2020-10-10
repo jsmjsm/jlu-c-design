@@ -526,6 +526,7 @@ int inter_print_record_during_time(struct record_list *list)
 	}
 	printf("开始日期 %d 月 %d 日\n", in_month, in_day);
 	printf("结束日期 %d 月 %d 日\n", out_month, out_day);
+	// 到这里之前都是可以正常运行的
 	if (printRecordDuringTime(list, in_month, in_day, out_month, out_day) == 1)
 	{
 		printf("输出某时间段的诊疗信息输出完毕\n");
