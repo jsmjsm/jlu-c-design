@@ -466,3 +466,72 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 	}
 	return 0;
 }
+
+// 交互设计：输出某时间段的诊疗信息
+int inter_print_record_during_time(struct record_list *list)
+{
+	int in_month;
+	int in_day;
+	int out_month;
+	int out_day;
+	// > in
+	// 月
+	printf("请输入诊疗信息开始的月份（month）:\n");
+	scanf("%d", &in_month);
+	fflush(stdin);
+	in_month = (int)in_month;
+	while (in_month > 12 || in_month < 1)
+	{
+		printf("月份输入错误！请重试！\n");
+		scanf("%d", &in_month);
+		fflush(stdin);
+	}
+
+	// 日
+	printf("请输入诊疗信息开始的日期（day）:\n");
+	scanf("%d", &in_day);
+	fflush(stdin);
+	in_day = (int)in_day;
+	while (in_day > 31 || in_day < 1)
+	{
+		printf("日期输入错误！请重试！\n");
+		scanf("%d", &in_day);
+		fflush(stdin);
+	}
+
+	// > out
+	// 月
+	printf("请输入诊疗信息结束的月份（month）:\n");
+	scanf("%d", &out_month);
+	fflush(stdin);
+	out_month = (int)out_month;
+	while (out_month > 12 || out_month < 1)
+	{
+		printf("月份输入错误！请重试！\n");
+		scanf("%d", &out_month);
+		fflush(stdin);
+	}
+
+	// 日
+	printf("请输入诊疗信息结束的日期（day）:\n");
+	scanf("%d", &out_day);
+	fflush(stdin);
+	out_day = (int)out_day;
+	while (out_day > 31 || out_day < 1)
+	{
+		printf("日期输入错误！请重试！\n");
+		scanf("%d", &out_day);
+		fflush(stdin);
+	}
+
+	if (printRecordDuringTime(list, in_month, in_day, out_month, out_month) == 1)
+	{
+		printf("输出某时间段的诊疗信息输出完毕\n");
+	}
+	else
+	{
+		printf("输出某时间段的诊疗信息出错 inter_print_record_during_time()\n");
+	}
+
+	return 0;
+}

@@ -3,6 +3,7 @@
 
 #include "basic_function.h"
 
+// 删记录
 int deleteOneRecord(struct record_list *list, int register_id);
 
 int modifyOneRecord(struct record_list *list, struct patient pa, struct doctor *doc, struct treatment tm, int register_id);

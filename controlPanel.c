@@ -337,8 +337,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 10:
 		printf("10. 输出某时间段的诊疗信息\n");
-		/*TODO: 接口接入10*/
-
+		inter_print_record_during_time(rlp);
 		break;
 	case 11:
 		printf("11. 录入医生信息\n");

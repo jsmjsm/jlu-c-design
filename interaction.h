@@ -43,4 +43,7 @@ int inter_delete_one_record(struct record_list *list);
 // 交互设计：修改一条诊疗记录
 int inter_modify_one_record(struct record_list *list, struct medicine_list *m_list, struct doctor_list *d_list);
 
+// 交互设计：输出某时间段的诊疗信息
+int inter_print_record_during_time(struct record_list *list);
+
 #endif
