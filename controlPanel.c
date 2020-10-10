@@ -24,11 +24,6 @@ struct medicine_list *mlp = &ml;
 
 void mainControl() // 主界面
 {
-	// TODO；Init!
-
-	/*需要：初始化*/
-
-	/*需要： 记录装载*/
 
 	int isEnterMenu = -1;
 	int isExit = 0;
@@ -314,7 +309,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 5:
 		printf("5. 打印一位医生的诊疗信息\n");
-		/*TODO: 接口接入5*/
+		inter_print_one_doctor(rlp, dl);
 		break;
 	case 6:
 		printf("6. 打印患者的历史诊疗信息\n");

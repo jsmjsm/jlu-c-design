@@ -468,6 +468,7 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 }
 
 // 交互设计：输出某时间段的诊疗信息
+// TODO:BUG
 int inter_print_record_during_time(struct record_list *list)
 {
 	int in_month;
@@ -523,8 +524,9 @@ int inter_print_record_during_time(struct record_list *list)
 		scanf("%d", &out_day);
 		fflush(stdin);
 	}
-
-	if (printRecordDuringTime(list, in_month, in_day, out_month, out_month) == 1)
+	printf("开始日期 %d 月 %d 日\n", in_month, in_day);
+	printf("结束日期 %d 月 %d 日\n", out_month, out_day);
+	if (printRecordDuringTime(list, in_month, in_day, out_month, out_day) == 1)
 	{
 		printf("输出某时间段的诊疗信息输出完毕\n");
 	}
@@ -681,6 +683,38 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 }
 
 // 交互设计：打印一位医生的诊疗信息
-int inter_print_one_doctor(struct record_list *list)
+int inter_print_one_doctor(struct record_list *list, struct doctor_list dl)
 {
+	int inputDoctorID = 0;
+	int isValid = -1;
+	int isContinue = 1;
+	struct doctor *doctor = NULL;
+
+	// find doctor
+	while (isContinue == 1)
+	{
+		inputDoctorID = inputID("医生ID");
+		doctor = find_doctor(inputDoctorID, dl);
+		if (doctor != NULL)
+		{
+			printf("查询成功，该医生ID存在\n");
+			isContinue = 0;
+		}
+		else
+		{
+			isContinue = isNextInput("查询失败，该医生ID不存在，继续查询请输入 1 ， 否则输入 0");
+		}
+	}
+
+	// print
+	if (searchByDoctor(list, inputDoctorID) == 1)
+	{
+		printf("ID:%d医生的诊疗信息输出完毕\n", inputDoctorID);
+	}
+	else
+	{
+		printf("医生的诊疗信息输出失败 inter_print_one_doctor() \n");
+	}
+
+	return 0;
 }

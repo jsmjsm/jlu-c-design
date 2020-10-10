@@ -53,6 +53,6 @@ int inter_create_live_in_hospital(struct record_list *list);
 int inter_calc_hospital_current_turnover(struct record_list *list);
 
 // 交互设计：打印一位医生的诊疗信息
-int inter_print_one_doctor(struct record_list *list);
+int inter_print_one_doctor(struct record_list *list, struct doctor_list dl);
 
 #endif
