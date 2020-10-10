@@ -40,4 +40,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 // 交互设计： 删除一条诊疗记录
 int inter_delete_one_record(struct record_list *list);
 
+// 交互设计：修改一条诊疗记录
+int inter_modify_one_record(struct record_list *list, struct medicine_list *m_list, struct doctor_list *d_list);
+
 #endif

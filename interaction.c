@@ -424,3 +424,45 @@ int inter_delete_one_record(struct record_list *list)
 	}
 	return 0;
 }
+
+// 交互设计：修改一条诊疗记录
+int inter_modify_one_record(struct record_list *list, struct medicine_list *m_list, struct doctor_list *d_list)
+{
+	// 先查，再修改
+	int inputRegisterID = 0;
+	int isIDValid = -1;
+	int isContinue = 1;
+
+	while (isContinue == 1)
+	{
+		inputRegisterID = inputID("挂号");
+		isIDValid = register_id_valid(list, inputRegisterID);
+		if (isIDValid == 1)
+		{
+			printf("查询成功，该挂号存在\n");
+			isContinue = 0;
+		}
+		else
+		{
+			isContinue = isNextInput("查询失败，该挂号不存在，继续查询请输入 1 ， 否则输入 0");
+		}
+	}
+
+	// 创建
+	int worker_id;
+	struct patient pa = inter_create_patient();
+	worker_id = inputID("医生的工号");
+	struct doctor *doc = find_doctor(worker_id, *d_list);
+	struct treatment tm = inter_create_treatment(m_list);
+
+	// 接入 function
+	if (modifyOneRecord(list, pa, doc, tm, inputRegisterID) == 1)
+	{
+		printf("修改诊疗记录成功！\n");
+	}
+	else
+	{
+		printf("修改诊疗记录出错 inter_modify_one_record()\n");
+	}
+	return 0;
+}

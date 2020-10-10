@@ -306,17 +306,15 @@ int operateMenu(int menuDecision)
 		break;
 	case 3:
 		printf("3. 修改一条诊疗记录\n");
-		/*TODO: 接口接入*/
-
+		inter_modify_one_record(rlp, mlp, dlp);
 		break;
 	case 4:
 		printf("4. 删除一条诊疗记录\n");
-		/*TODO: 接口接入*/
 		inter_delete_one_record(rlp);
 		break;
 	case 5:
 		printf("5. 打印一位医生的诊疗信息\n");
-		/*TODO: 接口接入*/
+		/*TODO: 接口接入5*/
 		break;
 	case 6:
 		printf("6. 打印患者的历史诊疗信息\n");
@@ -324,22 +322,22 @@ int operateMenu(int menuDecision)
 		break;
 	case 7:
 		printf("7. 统计医院目前营业额\n");
-		/*TODO: 接口接入*/
+		/*TODO: 接口接入7*/
 
 		break;
 	case 8:
 		printf("8. 生成当前住院 报表\n");
-		/*TODO: 接口接入*/
+		/*TODO: 接口接入8*/
 
 		break;
 	case 9:
 		printf("9. 统计医生出诊情况及繁忙程度\n");
-		/*TODO: 接口接入*/
+		/*TODO: 接口接入9*/
 
 		break;
 	case 10:
 		printf("10. 输出某时间段的诊疗信息\n");
-		/*TODO: 接口接入*/
+		/*TODO: 接口接入10*/
 
 		break;
 	case 11:
@@ -364,8 +362,6 @@ int operateMenu(int menuDecision)
 
 	case 15:
 		printf("15. 保存系统信息文件\n");
-		/*TODO: 接口接入*/
-
 		//***********************保存record***********************
 		writeout_record(rlp->head);
 
