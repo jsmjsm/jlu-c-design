@@ -91,14 +91,6 @@ int *inputWork()
 // 输入价钱
 int inputPrice(int isPrint)
 {
-	/* Old Version
-	int price = 0;
-	printf("请输入金额\n");
-	scanf("%d", &price);
-	fflush(stdin);
-	printf("输入成功，金额: %d\n", price);
-	return price;
-	*/
 
 	double price = 0;
 	int valueAsFen = -1;

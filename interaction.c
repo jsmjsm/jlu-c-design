@@ -1,13 +1,23 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS  
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "inputFunc.h"
-#include "function.h"
 #include "basic_function.h"
+#include "function.h"
+
+// 交互设计: 保存药品信息（新加）
+struct medicine inter_create_medicine(struct medicine_list *m_list)
+{
+	struct medicine temp;
+	strcpy(temp.name, inputCharWithTitle("药品名称"));
+	temp.unit_Price = inputPrice(1);
+	add_to_medicine_list(m_list, temp.name, temp.unit_Price);
+	return temp;
+}
 
 // 交互设计：保存患者信息，返回一个 patient 结构体，然后调用 create_patient(,,,) 函数
-struct patient inter_craate_patient()
+struct patient inter_create_patient()
 {
 	// 患者结构体
 	struct patient pa;
@@ -15,12 +25,13 @@ struct patient inter_craate_patient()
 	pa.register_id = -1;
 	strcpy(pa.name, inputCharWithTitle("患者姓名"));
 	pa.age = inputAge();
-	pa.register_id = inputID("挂号");
+	pa.register_id = 0;//已修改
 	return pa;
 }
 
 // 交互设计: 保存医生信息, 返回一个医生结构体
-struct doctor inter_create_doctor()
+//此条重点修改
+struct doctor inter_create_doctor(struct doctor_list *d_list)
 {
 	struct doctor oneDoctor;
 	strcpy(oneDoctor.name, inputCharWithTitle("医生姓名"));
@@ -34,17 +45,7 @@ struct doctor inter_create_doctor()
 	{
 		oneDoctor.visit[i] = p[i];
 	}
-	// // debug
-	// printf("\nDEBUG!!\n");
-	// printf("%s\n", oneDoctor.name);
-	// printf("%s\n", oneDoctor.level);
-	// printf("%s\n", oneDoctor.department);
-	// printf("%d\n", oneDoctor.worker_id);
-
-	// for (int j = 0; j <= 7; j++)
-	// {
-	//     printf("[%d]", oneDoctor.visit[j]);
-	// }
+	create_doctor(oneDoctor.name, oneDoctor.level, oneDoctor.department, oneDoctor.worker_id, oneDoctor.visit, d_list);
 	return oneDoctor;
 }
 
@@ -76,33 +77,9 @@ struct body_Check *inter_create_check()
 	{
 		// check isNext
 		isNext = isNextInput("是否还有其他检查项目，是则输入 1，否则输入 0");
-		/*
-		printf("是否还有其他检查项目，是则输入 1，否则输入 0\n");
-		scanf("%d", &isNext);
-		fflush(stdin);
-		while (isNext != 1 && isNext != 0)
-		{
-			printf("输入有误，请重试！\n");
-			scanf("%d", &isNext);
-			fflush(stdin);
-		}
-		*/
-		// next
 		if (isNext == 0)
 		{
 			end->next = NULL;
-
-			// DEBUG
-			// printf("DEBUG NOW!!\n");
-			// struct body_Check *debug_visit;
-			// debug_visit = check_head;
-			// while (debug_visit != NULL)
-			// {
-			//     printf("%s\n", debug_visit->name);
-			//     printf("%d\n", debug_visit->price);
-			//     debug_visit = debug_visit->next;
-			// }
-			// printf("DEBUG DONE!!\n");
 			return check_head;
 		}
 		else if (isNext == 1)
@@ -149,18 +126,6 @@ struct medicine_list *inter_create_medicine_list()
 	{
 		// check isNext
 		isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
-		/*
-		printf("是否还有其他药品，是则输入 1，否则输入 0\n");
-		scanf("%d", &isNext);
-		fflush(stdin);
-		while (isNext != 1 && isNext != 0)
-		{
-			printf("输入有误，请重试！\n");
-			scanf("%d", &isNext);
-			fflush(stdin);
-		}
-		*/
-
 		if (isNext == 0) // 没有其他药物
 		{
 			return m_list;
@@ -224,18 +189,6 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 			// 找不到药物的处理
 			// 是否继续找
 			isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
-			/*
-			printf("是否还有其他药品，是则输入 1，否则输入 0\n");
-			scanf("%d", &isNext);
-			isNext = isNext * 1;
-			fflush(stdin);
-			while (isNext != 1 && isNext != 0)
-			{
-				printf("输入有误，请重试！\n");
-				scanf("%d", &isNext);
-				fflush(stdin);
-			}
-			*/
 		}
 		else
 		{
@@ -247,17 +200,6 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 			end->next = NULL;
 			// next？
 			isNext = isNextInput("是否还有其他药品，是则输入 1，否则输入 0");
-			/*
-			printf("是否还有其他药品，是则输入 1，否则输入 0\n");
-			scanf("%d", &isNext);
-			fflush(stdin);
-			while (isNext != 1 && isNext != 0)
-			{
-				printf("输入有误，请重试！\n");
-				scanf("%d", &isNext);
-				fflush(stdin);
-			}
-			*/
 		}
 	}
 	return u_medicine_head;
@@ -265,9 +207,9 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 
 // 交互设计：住院记录
 // TODO: 未测试可行性
-struct live_hospital inter_create_live_hospital()
+struct live_hospital * inter_create_live_hospital()
 {
-	struct live_hospital live;
+	struct live_hospital * live;
 	int in_month;
 	int in_day;
 	int in_hour;
@@ -384,16 +326,6 @@ struct live_hospital inter_create_live_hospital()
 
 		finalCheck = isNextInput("以上信息是否正确，正确请输入 1，重新输入信息请输入 0");
 
-		// printf("以上信息是否正确，正确请输入 1，重新输入信息请输入 0\n");
-		// scanf("%d", &finalCheck);
-		// fflush(stdin);
-		// while ((finalCheck * 1) != 1 || (finalCheck * 1) != 0)
-		// {
-		//     printf("输入有误，请重试\n");
-		//     scanf("%d", &finalCheck);
-		//     fflush(stdin);
-		// }
-
 		if (finalCheck == 1)
 		{
 			live = create_live_hospital(in_month, in_day, in_hour, in_minute, out_month, out_day, out_hour, out_minute);
@@ -416,7 +348,7 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	// temp struct
 	struct body_Check *temp_body_check;
 	struct used_Medicine *temp_used_medicine;
-	struct live_hospital temp_live_hospital;
+	struct live_hospital *temp_live_hospital;
 
 	printf("即将创建一条 treatment!\n");
 
@@ -426,57 +358,27 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	temp_live_hospital = inter_create_live_hospital();
 
 	//  创建医疗记录
-	t = create_treatment(temp_body_check, temp_used_medicine, &temp_live_hospital);
+	t = create_treatment(temp_body_check, temp_used_medicine, temp_live_hospital);
 	printf("treatment 创建成功!\n");
 
 	return t;
 }
 
-// 交互找医生
-struct doctor *inter_find_doctor(struct doctor_list *list)
-{
-	struct doctor *result = NULL;
-	struct doctor temp_doctor = {"无名", "无职", "无科室", -1, {0}, NULL};
-
-	int temp_id = 0;
-	/*
-
-	*/
-	temp_id = inputID("欲查找的医生ID");
-
-	result = find_doctor(temp_id, *list);
-
-	if (result == NULL)
-	{
-		printf("无此医生\n");
-		result = &(temp_doctor);
-	}
-	else
-	{
-		printf("查找医生成功\n");
-		return result;
-	}
-
-	return result;
-}
-
 // 交互设计：添加一条记录
 // TODO: 未测试可行性
-int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *d_list)
+int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list,struct doctor_list * d_list)
 {
 	struct patient temp_patient;
-	struct doctor *temp_doctor;
+	struct doctor * temp_doctor;
 	struct treatment temp_treatment;
 
+	int worker_id;
+
 	printf("即将创建一条 redcord!\n");
-
-	temp_patient = inter_craate_patient();
-
-	// temp_doctor = inter_create_doctor();
-	temp_doctor = inter_find_doctor(d_list);
-
+	temp_patient = inter_create_patient();
+	worker_id = inputID("医生的工号");
+	temp_doctor = find_doctor(worker_id, *d_list);
 	temp_treatment = inter_create_treatment(m_list);
-
 	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);
 	printf("record 创建成功!\n");
 	return 0;

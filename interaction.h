@@ -7,11 +7,14 @@
 */
 #include "function.h"
 
+// 交互设计: 保存药品信息（新加）
+struct medicine inter_create_medicine(struct medicine_list *m_list);
+
 // 交互设计：保存患者信息，返回一个 patient 结构体，然后调用 create_patient(,,,) 函数
-struct patient inter_craate_patient();
+struct patient inter_create_patient();
 
 // 交互设计: 保存医生信息, 返回一个医生结构体
-struct doctor inter_create_doctor();
+struct doctor inter_create_doctor(struct doctor_list *);
 
 // 交互设计：保存身体检查信息，返回身体检查链表的头指针
 struct body_Check *inter_create_check();
@@ -28,13 +31,10 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list);
 // 交互设计：住院记录
 struct live_hospital inter_create_live_hospital();
 
-// 交互设计: 诊疗情况
+// 交互设计: 诊疗记录
 struct treatment inter_create_treatment(struct medicine_list *m_list);
 
-// 交互设计：添加一条诊疗记录
-int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *d_list);
-
-// 交互找医生
-struct doctor *inter_find_doctor(struct doctor_list *list);
+// 交互设计：添加一条记录
+int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *);
 
 #endif

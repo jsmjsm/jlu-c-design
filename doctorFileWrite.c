@@ -7,32 +7,32 @@
 
 void writeout_doctor(struct doctor_list dl)
 {
-	struct doctor* temp_dt = dl.head;//ÓÃÓÚÔİÊ±±£´æµ±Ç°recordÖ¸Õë
-	if (temp_dt == NULL)//ÅĞ¶ÏÍ·Ö¸Õë
+	struct doctor* temp_dt = dl.head;//ç”¨äºæš‚æ—¶ä¿å­˜å½“å‰recordæŒ‡é’ˆ
+	if (temp_dt == NULL)//åˆ¤æ–­å¤´æŒ‡é’ˆ
 	{
-		printf("doctorÁ´±íÍ·Ö¸ÕëÎª¿Õ£¡");
+		printf("doctoré“¾è¡¨å¤´æŒ‡é’ˆä¸ºç©ºï¼");
 		return;
 	}
 	else {
 		FILE* filewrite = fopen("txt\\doctor.txt", "w");
-		char intTOchar[16] = { 0 };//ÓÃÓÚ½«intÀàĞÍ×ª»»Îªchar*
+		char intTOchar[16] = { 0 };//ç”¨äºå°†intç±»å‹è½¬æ¢ä¸ºchar*
 		if (filewrite == NULL)
 		{
-			printf("Ğ´³öÎÄ¼şÖ¸ÕëÎª¿Õ£¡\n");
+			printf("å†™å‡ºæ–‡ä»¶æŒ‡é’ˆä¸ºç©ºï¼\n");
 			return;
 		}
 		else {
 			while (1)
 			{
-				fputs(temp_dt->name, filewrite); fputs("\n", filewrite);//Ãû×Ö
+				fputs(temp_dt->name, filewrite); fputs("\n", filewrite);//åå­—
 				fputs(temp_dt->level, filewrite); fputs("\n", filewrite);//level
-				fputs(temp_dt->department, filewrite); fputs("\n", filewrite);//¿ÆÊÒ
-				//itoa(temp_dt->worker_id, intTOchar, 10);//int×ªchar*
+				fputs(temp_dt->department, filewrite); fputs("\n", filewrite);//ç§‘å®¤
+				//itoa(temp_dt->worker_id, intTOchar, 10);//intè½¬char*
 				sprintf(intTOchar, "%d", temp_dt->worker_id);
-				fputs(intTOchar, filewrite); fputs("\n", filewrite);//¹¤ºÅ
+				fputs(intTOchar, filewrite); fputs("\n", filewrite);//å·¥å·
 
-				for (int i = 0; i < 8; i++) {//Ğ´ÈëvisitÊı×é
-					//itoa(temp_dt->visit[i], intTOchar, 10);//int×ªchar*
+				for (int i = 0; i < 8; i++) {//å†™å…¥visitæ•°ç»„
+					//itoa(temp_dt->visit[i], intTOchar, 10);//intè½¬char*
 					sprintf(intTOchar, "%d", temp_dt->visit[i]);
 					fputs(intTOchar, filewrite);
 					if (i < 7)

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "controlPanel.h"
 #include "basic_function.h"
+#include "function.h"
 #include "fileFunction.h"
 #include "interaction.h"
 #pragma warning(disable : 4996)
@@ -115,12 +116,16 @@ int spaceMenu()
 	printf("> 8. 生成当前住院 报表\n");
 	printf("> 9. 统计医生出诊情况及繁忙程度\n");
 	printf("> 10. 输出某时间段的诊疗信息\n");
-	printf("> 11. 保存系统信息文件\n");
+	printf("> 11. 录入医生信息\n");
+	printf("> 12. 录入药品信息\n");
+	printf("> 13. 查看全部医生信息（姓名、级别、科室、工号）\n");
+	printf("> 14. 查看全部药品信息（名称、单价）\n");
+	printf("> 15. 保存系统信息文件\n");
 	printf("> 0. 返回欢迎界面\n");
 
 	scanf("%d", &decision);
 	decision = (int)decision;
-	while (decision < 0 || decision > 11)
+	while (decision < 0 || decision > 15)
 	{
 		printf("输入错误！请重试！\n");
 		fflush(stdin); //清空缓冲区
@@ -247,10 +252,10 @@ int operateMenu(int menuDecision)
 			}
 
 			//住院信息
-			struct live_hospital lh = create_live_hospital(atoi(record_array[posi]), atoi(record_array[posi + 1]), atoi(record_array[posi + 2]), atoi(record_array[posi + 3]),
-														   atoi(record_array[posi + 4]), atoi(record_array[posi + 5]), atoi(record_array[posi + 6]), atoi(record_array[posi + 7]));
+			struct live_hospital *lhp = create_live_hospital(atoi(record_array[posi]), atoi(record_array[posi + 1]), atoi(record_array[posi + 2]), atoi(record_array[posi + 3]),
+															 atoi(record_array[posi + 4]), atoi(record_array[posi + 5]), atoi(record_array[posi + 6]), atoi(record_array[posi + 7]));
 			posi += 8;
-			struct live_hospital *lhp = &lh;
+			//struct live_hospital* lhp = &lh;
 
 			//生成treatment
 			struct treatment tm;
@@ -297,7 +302,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 2:
 		printf("2. 录入一条诊疗记录\n");
-		/*TODO: 接口接入*/
+
 		inter_add_one_record(rlp, mlp, dlp);
 		break;
 	case 3:
@@ -316,7 +321,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 6:
 		printf("6. 打印患者的历史诊疗信息\n");
-		searchByPatient(rlp, "小明", 20);
+		print_all(rlp); //仅用于调试
 		break;
 	case 7:
 		printf("7. 统计医院目前营业额\n");
@@ -339,7 +344,27 @@ int operateMenu(int menuDecision)
 
 		break;
 	case 11:
-		printf("11. 保存系统信息文件\n");
+		printf("11. 录入医生信息\n");
+		inter_create_doctor(dlp);
+		break;
+
+	case 12:
+		printf("12. 录入药品信息\n");
+		inter_create_medicine(mlp);
+		break;
+
+	case 13:
+		printf("> 13. 查看全部医生信息（姓名、级别、科室、工号）\n");
+		show_doctor_list(dlp);
+		break;
+
+	case 14:
+		printf("> 14. 查看全部药品信息（名称、单价）\n");
+		show_medicine_list(mlp);
+		break;
+
+	case 15:
+		printf("15. 保存系统信息文件\n");
 		/*TODO: 接口接入*/
 
 		//***********************保存record***********************

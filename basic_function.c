@@ -10,7 +10,8 @@ struct patient create_patient(const char name[20], int age, int register_id)
 	struct patient pa;
 	strcpy(pa.name, name);
 	pa.age = age;
-	pa.register_id = register_id; //挂号为日期（4位）+当天顺序号（3位）
+	pa.register_id = 0; //挂号为日期（4位）+当天顺序号（3位）
+	//挂号改为在创建record时自动生成，为防止bug上句话保留
 	return pa;
 }
 
@@ -60,6 +61,24 @@ struct doctor *find_doctor(int worker_id, struct doctor_list list)
 	return NULL;
 }
 
+void show_doctor_list(struct doctor_list *list)
+{ //根据工号搜寻医生
+	struct doctor *temp;
+	temp = list->head;
+	int i = 1;
+	while (temp != NULL)
+	{
+		printf("第%d个医生：\n", i);
+		printf("姓名：%s     ", temp->name);
+		printf("级别：%s\n", temp->level);
+		printf("科室：%s     ", temp->department);
+		printf("工号：%d\n", temp->worker_id);
+		printf("\n");
+		temp = temp->next;
+		i++;
+	}
+}
+
 struct treatment create_treatment(struct body_Check *bc, struct used_Medicine *um, struct live_hospital *lh)
 { //体检、用药、住院
 	struct treatment tm;
@@ -71,7 +90,6 @@ struct treatment create_treatment(struct body_Check *bc, struct used_Medicine *u
 	int cost_m = 0;
 	tm.bc = bc;
 	tm.um = um;
-	tm.lh = lh;
 	temp1 = bc;
 	while (bc != NULL)
 	{
@@ -95,6 +113,18 @@ struct treatment create_treatment(struct body_Check *bc, struct used_Medicine *u
 	}
 	tm.medicine_num = num_m;
 	tm.medicine_total_price = cost_m;
+
+	tm.lh = lh;
+	tm.lh->in_time.month = lh->in_time.month;
+	tm.lh->in_time.day = lh->in_time.day;
+	tm.lh->in_time.hour = lh->in_time.hour;
+	tm.lh->in_time.minute = lh->in_time.minute;
+	tm.lh->out_time.month = lh->out_time.month;
+	tm.lh->out_time.day = lh->out_time.day;
+	tm.lh->out_time.hour = lh->out_time.hour;
+	tm.lh->out_time.minute = lh->out_time.minute;
+	tm.lh->pledge = lh->pledge;
+	tm.lh->predict_days = lh->predict_days;
 	return tm;
 }
 
@@ -146,6 +176,21 @@ struct medicine *search_medicine(struct medicine_list *list, const char name[30]
 	return NULL;
 }
 
+void show_medicine_list(struct medicine_list *list)
+{ //显示全部药
+	struct medicine *temp;
+	temp = list->head;
+	int i = 1;
+	while (temp != NULL)
+	{
+		printf("第%d类药品：\n", i);
+		printf("名称：%s     ", temp->name);
+		printf("单价：%.2f\n", temp->unit_Price * 1.0 / 100);
+		i++;
+		temp = temp->next;
+	}
+}
+
 struct used_Medicine *create_use_m(struct used_Medicine *previous, struct medicine *m, int amount)
 { //增加用药
 	struct used_Medicine *use;
@@ -168,22 +213,50 @@ struct time create_time(int month, int day, int hour, int minute)
 	return new_time;
 }
 
-struct live_hospital create_live_hospital(int in_month, int in_day, int in_hour, int in_minute, int out_month, int out_day, int out_hour, int out_minute)
+struct live_hospital *create_live_hospital(int in_month, int in_day, int in_hour, int in_minute, int out_month, int out_day, int out_hour, int out_minute)
 { //添加住院信息
-	struct live_hospital new_live;
+	struct live_hospital *new_live;
+	new_live = (struct live_hospital *)malloc(sizeof(struct live_hospital));
 	struct time in_time;
 	struct time out_time;
 	in_time = create_time(in_month, in_day, in_hour, in_minute);
 	out_time = create_time(out_month, out_day, out_hour, out_minute);
-	new_live.in_time = in_time;
-	new_live.out_time = out_time;
-	new_live.predict_days = ((out_month - in_month) * 30 + (out_day - in_day));
+	new_live->in_time = in_time;
+	new_live->out_time = out_time;
+	new_live->predict_days = ((out_month - in_month) * 30 + (out_day - in_day));
 	if (out_hour < 8)
-		new_live.predict_days++;
-	new_live.pledge = 20000 * new_live.predict_days;
-	if (new_live.pledge < 100000)
-		new_live.pledge = 100000;
+		new_live->predict_days++;
+	new_live->pledge = 20000 * new_live->predict_days;
+	if (new_live->pledge < 100000)
+		new_live->pledge = 100000;
 	return new_live;
+}
+
+// bool 改成了 int 1 代表true 0 代表false
+int register_id_valid(struct record_list *list, int id)
+{ //检查是否已有此挂号
+	struct record *temp;
+	temp = list->head;
+	while (temp != NULL)
+	{
+		if (temp->pa.register_id == id)
+		{
+			return 0;
+		}
+		temp = temp->next;
+	}
+	return 1;
+}
+
+int create_register_id(struct record_list *list, struct time in_time)
+{ //自动生成挂号
+	int register_id = 0;
+	register_id += in_time.month * 100000 + in_time.day * 1000 + 1;
+	while (register_id_valid(list, register_id) != 1)
+	{
+		register_id++;
+	}
+	return register_id;
 }
 
 int addOneRecord(struct record_list *list, struct patient pa, struct doctor *doc, struct treatment tm)
@@ -195,6 +268,8 @@ int addOneRecord(struct record_list *list, struct patient pa, struct doctor *doc
 	new_record->pa = pa;
 	new_record->doc = doc;
 	new_record->tm = tm;
+	//在此处放置自动生成挂号的函数
+	new_record->pa.register_id = create_register_id(list, tm.lh->in_time);
 	new_record->next = NULL;
 	//添加到record_list
 	temp = list->head;
