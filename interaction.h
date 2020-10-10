@@ -46,4 +46,7 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 // 交互设计：输出某时间段的诊疗信息
 int inter_print_record_during_time(struct record_list *list);
 
+// 交互设计：输出当前住院报表
+int inter_create_live_in_hospital(struct record_list *list);
+
 #endif

@@ -535,3 +535,74 @@ int inter_print_record_during_time(struct record_list *list)
 
 	return 0;
 }
+
+// 交互设计：输出当前住院报表
+int inter_create_live_in_hospital(struct record_list *list)
+{
+
+	int in_month;
+	int in_day;
+	int in_hour;
+	int in_minute;
+	// > in
+	// 月
+	printf("请输入当前月份（month）:\n");
+	scanf("%d", &in_month);
+	fflush(stdin);
+	in_month = (int)in_month;
+	while (in_month > 12 || in_month < 1)
+	{
+		printf("月份输入错误！请重试！\n");
+		scanf("%d", &in_month);
+		fflush(stdin);
+	}
+
+	// 日
+	printf("请输入当前日期（day）:\n");
+	scanf("%d", &in_day);
+	fflush(stdin);
+	in_day = (int)in_day;
+	while (in_day > 31 || in_day < 1)
+	{
+		printf("日期输入错误！请重试！\n");
+		scanf("%d", &in_day);
+		fflush(stdin);
+	}
+
+	// 时
+	printf("请输入当前时间（24小时制）（hour）:\n");
+	scanf("%d", &in_hour);
+	fflush(stdin);
+	in_hour = (int)in_hour;
+	while (in_hour > 31 || in_hour < 1)
+	{
+		printf("时间输入错误！请重试！\n");
+		scanf("%d", &in_hour);
+		fflush(stdin);
+	}
+
+	// min
+	printf("请输入当前分钟（minute）:\n");
+	scanf("%d", &in_minute);
+	fflush(stdin);
+	in_minute = (int)in_minute;
+	while (in_minute > 60 || in_minute < 0)
+	{
+		printf("分钟输入错误！请重试！\n");
+		scanf("%d", &in_minute);
+		fflush(stdin);
+	}
+
+	struct time now = {in_month, in_day, in_hour, in_minute};
+
+	if (createLiveInHospital(list, now) == 1)
+	{
+		printf("当前住院报表输出成功\n");
+	}
+	else
+	{
+		printf("当前住院报表输出失败 inter_create_live_in_hospital \n");
+	}
+
+	return 0;
+}

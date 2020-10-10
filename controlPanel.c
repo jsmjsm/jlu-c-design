@@ -326,7 +326,7 @@ int operateMenu(int menuDecision)
 
 		break;
 	case 8:
-		printf("8. 生成当前住院 报表\n");
+		printf("8. 生成当前住院的报表\n");
 		/*TODO: 接口接入8*/
 
 		break;
