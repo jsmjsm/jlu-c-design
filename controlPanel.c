@@ -331,8 +331,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 9:
 		printf("9. 统计医生出诊情况及繁忙程度\n");
-		/*TODO: 接口接入9*/
-
+		calcDoctorBusy(rlp, dl);
 		break;
 	case 10:
 		printf("10. 输出某时间段的诊疗信息\n");
