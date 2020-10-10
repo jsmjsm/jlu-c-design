@@ -606,3 +606,81 @@ int inter_create_live_in_hospital(struct record_list *list)
 
 	return 0;
 }
+
+// 交互设计：统计医院目前营业额
+int inter_calc_hospital_current_turnover(struct record_list *list)
+{
+	double totalTurnover = 0.00;
+	double liveHospitalTurnover = 0.00;
+	int in_month;
+	int in_day;
+	int in_hour;
+	int in_minute;
+	// > Time
+	// 月
+	printf("请输入当前月份（month）:\n");
+	scanf("%d", &in_month);
+	fflush(stdin);
+	in_month = (int)in_month;
+	while (in_month > 12 || in_month < 1)
+	{
+		printf("月份输入错误！请重试！\n");
+		scanf("%d", &in_month);
+		fflush(stdin);
+	}
+
+	// 日
+	printf("请输入当前日期（day）:\n");
+	scanf("%d", &in_day);
+	fflush(stdin);
+	in_day = (int)in_day;
+	while (in_day > 31 || in_day < 1)
+	{
+		printf("日期输入错误！请重试！\n");
+		scanf("%d", &in_day);
+		fflush(stdin);
+	}
+
+	// 时
+	printf("请输入当前时间（24小时制）（hour）:\n");
+	scanf("%d", &in_hour);
+	fflush(stdin);
+	in_hour = (int)in_hour;
+	while (in_hour > 31 || in_hour < 1)
+	{
+		printf("时间输入错误！请重试！\n");
+		scanf("%d", &in_hour);
+		fflush(stdin);
+	}
+
+	// min
+	printf("请输入当前分钟（minute）:\n");
+	scanf("%d", &in_minute);
+	fflush(stdin);
+	in_minute = (int)in_minute;
+	while (in_minute > 60 || in_minute < 0)
+	{
+		printf("分钟输入错误！请重试！\n");
+		scanf("%d", &in_minute);
+		fflush(stdin);
+	}
+	struct time now = {in_month, in_day, in_hour, in_minute};
+
+	liveHospitalTurnover = deduct_expenses(list, now);
+	totalTurnover = calcCurrentTurnover(list, liveHospitalTurnover);
+
+	// 输出结果
+	printf("目前时间：%d月 %d日 %d时 %d分\n", now.month, now.day, now.hour, now.minute);
+	printf("医院目前营业额:\n");
+	printf("%f", totalTurnover);
+	money_double_yjf(totalTurnover, 1); //元角分输出
+	printf("其中，住院营业额: %f\n", liveHospitalTurnover);
+	money_double_yjf(liveHospitalTurnover, 1); // 元角分输出
+
+	return 0;
+}
+
+// 交互设计：打印一位医生的诊疗信息
+int inter_print_one_doctor(struct record_list *list)
+{
+}

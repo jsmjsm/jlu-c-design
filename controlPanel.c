@@ -322,8 +322,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 7:
 		printf("7. 统计医院目前营业额\n");
-		/*TODO: 接口接入7*/
-
+		inter_calc_hospital_current_turnover(rlp);
 		break;
 	case 8:
 		printf("8. 生成当前住院的报表\n");
