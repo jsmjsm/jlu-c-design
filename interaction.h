@@ -55,4 +55,7 @@ int inter_calc_hospital_current_turnover(struct record_list *list);
 // 交互设计：打印一位医生的诊疗信息
 int inter_print_one_doctor(struct record_list *list, struct doctor_list dl);
 
+// 交互设计： 打印一个病人的历史诊疗信息
+int inter_print_one_patient(struct record_list *list);
+
 #endif

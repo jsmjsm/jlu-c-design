@@ -450,7 +450,8 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 
 	// 创建
 
-	if (isIDValid == 1) {
+	if (isIDValid == 1)
+	{
 		int worker_id;
 		struct patient pa = inter_create_patient();
 		worker_id = inputID("医生的工号");
@@ -605,7 +606,7 @@ int inter_create_live_in_hospital(struct record_list *list)
 		fflush(stdin);
 	}
 
-	struct time now = { in_month, in_day, in_hour, in_minute };
+	struct time now = {in_month, in_day, in_hour, in_minute};
 
 	if (createLiveInHospital(list, now) == 1)
 	{
@@ -676,8 +677,7 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 		scanf("%d", &in_minute);
 		fflush(stdin);
 	}
-	struct time now = { in_month, in_day, in_hour, in_minute };
-
+	struct time now = {in_month, in_day, in_hour, in_minute};
 
 	totalTurnover = calcCurrentTurnover(list, now);
 
@@ -687,7 +687,6 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	money_double_yjf(totalTurnover, 1); //元角分输出
 	//printf("其中，住院营业额: \n");
 	//money_double_yjf(liveHospitalTurnover, 1); // 元角分输出
-
 
 	return 0;
 }
@@ -724,6 +723,41 @@ int inter_print_one_doctor(struct record_list *list, struct doctor_list dl)
 	else
 	{
 		printf("医生的诊疗信息输出失败 inter_print_one_doctor() \n");
+	}
+
+	return 0;
+}
+
+// 交互设计： 打印一个病人的历史诊疗信息
+int inter_print_one_patient(struct record_list *list)
+{
+
+	char name[20];
+	int age = 0;
+	int isContinue = 1;
+
+	// input name
+	strcpy(name, inputCharWithTitle("病人的名字"));
+	// input age
+	age = inputAge();
+
+	// isContinue
+
+	while (isContinue == 1)
+	{
+		if (searchByPatient(list, name, age) == 1)
+		{
+			printf("以下是病人: %s 的历史诊疗信息:\n", name);
+
+			printf("病人: %s 的历史诊疗信息输出结束\n", name);
+			isContinue = 0;
+		}
+		else
+		{
+			// printf("该病人: %s 不存在 \n", name);
+			// isContinue = isNextInput("继续查询请输入 1 ， 否则输入 0");
+			printf("错误，inter_print_one_patient()\n");
+		}
 	}
 
 	return 0;
