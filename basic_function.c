@@ -314,14 +314,16 @@ void print_record(struct record *temp)
 	printf("检查总价格：%.2f元\n", temp->tm.check_total_price * 1.0 / 100);
 	j = 1;
 	temp_m = temp->tm.um;
-	printf("药品种类数：%d\n", temp->tm.medicine_num);
-	while (temp_m != NULL)
-	{
-		printf("药品%d：%s   ", j, temp_m->use_m->name);
-		printf("单价：%.2f元   ", temp_m->use_m->unit_Price * 1.0 / 100);
-		printf("数量：%d\n", temp_m->amount);
-		j++;
-		temp_m = temp_m->next;
+	if (temp_m->use_m->name != NULL) {
+		printf("药品种类数：%d\n", temp->tm.medicine_num);
+		while (temp_m != NULL)
+		{
+			printf("药品%d：%s   ", j, temp_m->use_m->name);
+			printf("单价：%.2f元   ", temp_m->use_m->unit_Price * 1.0 / 100);
+			printf("数量：%d\n", temp_m->amount);
+			j++;
+			temp_m = temp_m->next;
+		}
 	}
 	printf("药品总价格：%.2f元\n", temp->tm.medicine_total_price * 1.0 / 100);
 	printf("住院时间：%d月%d日%d时%d分\n", temp->tm.lh->in_time.month, temp->tm.lh->in_time.day, temp->tm.lh->in_time.hour, temp->tm.lh->in_time.minute);

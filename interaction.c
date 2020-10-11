@@ -449,21 +449,30 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 	}
 
 	// 创建
-	int worker_id;
-	struct patient pa = inter_create_patient();
-	worker_id = inputID("医生的工号");
-	struct doctor *doc = find_doctor(worker_id, *d_list);
-	struct treatment tm = inter_create_treatment(m_list);
 
-	// 接入 function
-	if (modifyOneRecord(list, pa, doc, tm, inputRegisterID) == 1)
-	{
-		printf("修改诊疗记录成功！\n");
+	if (isIDValid == 1) {
+		int worker_id;
+		struct patient pa = inter_create_patient();
+		worker_id = inputID("医生的工号");
+		struct doctor *doc = find_doctor(worker_id, *d_list);
+		struct treatment tm = inter_create_treatment(m_list);
+
+		// 接入 function
+		if (modifyOneRecord(list, pa, doc, tm, inputRegisterID) == 1)
+		{
+			printf("修改诊疗记录成功！\n");
+		}
+		else
+		{
+			printf("修改诊疗记录出错 inter_modify_one_record()\n");
+		}
 	}
 	else
 	{
-		printf("修改诊疗记录出错 inter_modify_one_record()\n");
+		printf("放弃修改一条诊疗记录\n");
 	}
+	//已补充
+
 	return 0;
 }
 
@@ -596,7 +605,7 @@ int inter_create_live_in_hospital(struct record_list *list)
 		fflush(stdin);
 	}
 
-	struct time now = {in_month, in_day, in_hour, in_minute};
+	struct time now = { in_month, in_day, in_hour, in_minute };
 
 	if (createLiveInHospital(list, now) == 1)
 	{
@@ -649,7 +658,7 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	scanf("%d", &in_hour);
 	fflush(stdin);
 	in_hour = (int)in_hour;
-	while (in_hour > 31 || in_hour < 1)
+	while (in_hour > 31 || in_hour < 0)
 	{
 		printf("时间输入错误！请重试！\n");
 		scanf("%d", &in_hour);
@@ -667,18 +676,18 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 		scanf("%d", &in_minute);
 		fflush(stdin);
 	}
-	struct time now = {in_month, in_day, in_hour, in_minute};
+	struct time now = { in_month, in_day, in_hour, in_minute };
 
-	liveHospitalTurnover = deduct_expenses(list, now);
-	totalTurnover = calcCurrentTurnover(list, liveHospitalTurnover);
+
+	totalTurnover = calcCurrentTurnover(list, now);
 
 	// 输出结果
 	printf("目前时间：%d月 %d日 %d时 %d分\n", now.month, now.day, now.hour, now.minute);
 	printf("医院目前营业额:\n");
-	printf("%f", totalTurnover);
 	money_double_yjf(totalTurnover, 1); //元角分输出
-	printf("其中，住院营业额: %f\n", liveHospitalTurnover);
-	money_double_yjf(liveHospitalTurnover, 1); // 元角分输出
+	//printf("其中，住院营业额: \n");
+	//money_double_yjf(liveHospitalTurnover, 1); // 元角分输出
+
 
 	return 0;
 }

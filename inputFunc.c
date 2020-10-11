@@ -49,7 +49,7 @@ int inputID(const char *title)
 // 医生上班
 int *inputWork()
 {
-	static int work[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+	int work[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; //TODO: static问题，已删
 	int totalDays = 0;
 	// 设置总天数
 	do {
