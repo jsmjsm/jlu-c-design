@@ -252,7 +252,7 @@ struct live_hospital *inter_create_live_hospital()
 		scanf("%d", &in_hour);
 		fflush(stdin);
 		in_hour = (int)in_hour;
-		while (in_hour > 31 || in_hour < 1)
+		while (in_hour > 31 || in_hour < 0)
 		{
 			printf("时间输入错误！请重试！\n");
 			scanf("%d", &in_hour);
@@ -301,7 +301,7 @@ struct live_hospital *inter_create_live_hospital()
 		scanf("%d", &out_hour);
 		fflush(stdin);
 		out_hour = (int)out_hour;
-		while (out_hour > 31 || out_hour < 1)
+		while (out_hour > 31 || out_hour < 0)
 		{
 			printf("时间输入错误！请重试！\n");
 			scanf("%d", &out_hour);
@@ -369,15 +369,45 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *d_list)
 {
 	struct patient temp_patient;
-	struct doctor *temp_doctor;
+	struct doctor *temp_doctor = NULL;
 	struct treatment temp_treatment;
-
+	int isContinue = 1;
+	int inputDoctorID = 0;
 	int worker_id;
 
 	printf("即将创建一条 redcord!\n");
 	temp_patient = inter_create_patient();
-	worker_id = inputID("医生的工号");
-	temp_doctor = find_doctor(worker_id, *d_list);
+	//
+	// find doctor
+	while (isContinue == 1)
+	{
+		inputDoctorID = inputID("医生ID");
+		temp_doctor = find_doctor(inputDoctorID, *d_list);
+		if (temp_doctor != NULL)
+		{
+			printf("查询成功，该医生存在，医生姓名：%s，医生ID：%d\n", temp_doctor->name, temp_doctor->worker_id);
+			isContinue = 0;
+		}
+		else
+		{
+			isContinue = isNextInput("查询失败，该医生ID不存在，继续查询请输入 1 ， 否则输入 0");
+			if (isContinue == 0)
+			{
+				printf("放弃创建诊疗记录\n");
+				return -1;
+			}
+		}
+	}
+
+	//
+	// worker_id = inputID("医生的工号\n");
+	// temp_doctor = find_doctor(worker_id, *d_list);
+	// while (temp_doctor == NULL)
+	// {
+	// 	worker_id = inputID("没有这个医生！请输入正确的医生工号\n");
+	// 	temp_doctor = find_doctor(worker_id, *d_list);
+	// }
+
 	temp_treatment = inter_create_treatment(m_list);
 	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);
 	printf("record 创建成功!\n");
@@ -587,7 +617,7 @@ int inter_create_live_in_hospital(struct record_list *list)
 	scanf("%d", &in_hour);
 	fflush(stdin);
 	in_hour = (int)in_hour;
-	while (in_hour > 31 || in_hour < 1)
+	while (in_hour > 31 || in_hour < 0)
 	{
 		printf("时间输入错误！请重试！\n");
 		scanf("%d", &in_hour);
@@ -747,7 +777,7 @@ int inter_print_one_patient(struct record_list *list)
 	{
 		if (searchByPatient(list, name, age) == 1)
 		{
-			printf("以下是病人: %s 的历史诊疗信息:\n", name);
+			//printf("以下是病人: %s 的历史诊疗信息:\n", name);
 
 			printf("病人: %s 的历史诊疗信息输出结束\n", name);
 			isContinue = 0;

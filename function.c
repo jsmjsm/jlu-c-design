@@ -194,20 +194,6 @@ double deduct_expenses(struct record_list *list, struct time now)
 	return expense * 1.0 / 100;
 }
 
-/*
-double calcCurrentTurnover(struct record_list * list, double live_hospital) { //计算体检费用和药物费用，住院费用另外计算
-	struct record * temp;
-	temp = list->head;
-	int total_money = 0;
-	while (temp != NULL) {
-		total_money += temp->tm.check_total_price;
-		total_money += temp->tm.medicine_total_price;
-		temp = temp->next;
-	}
-	return total_money * 1.0 / 100 + live_hospital;
-}
-*/
-
 int day_count(int month, int day)
 {
 	int days = 0;
@@ -257,7 +243,7 @@ double calcCurrentTurnover(struct record_list *list, struct time now)
 	struct record *temp;
 	temp = list->head;
 	now_time = now.month * 1000000 + now.day * 10000 + now.hour * 100 + now.minute;
-	int total_money = 0;
+	double total_money = 0;
 	while (temp != NULL)
 	{
 		in_time = temp->tm.lh->in_time.month * 1000000 + temp->tm.lh->in_time.day * 10000 + temp->tm.lh->in_time.hour * 100 + temp->tm.lh->in_time.minute;
@@ -274,7 +260,7 @@ double calcCurrentTurnover(struct record_list *list, struct time now)
 			}
 			else
 			{ //已出院
-				total_money += day_minus(temp->tm.lh->in_time.month, temp->tm.lh->in_time.day, temp->tm.lh->out_time.day, temp->tm.lh->out_time.day) * 20000;
+				total_money += day_minus(temp->tm.lh->in_time.month, temp->tm.lh->in_time.day, temp->tm.lh->out_time.month, temp->tm.lh->out_time.day) * 20000;
 				if (temp->tm.lh->out_time.hour < 8)
 					total_money -= 20000;
 			}

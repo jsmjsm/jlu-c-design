@@ -121,11 +121,12 @@ int spaceMenu()
 	printf("> 13. 查看全部医生信息（姓名、级别、科室、工号）\n");
 	printf("> 14. 查看全部药品信息（名称、单价）\n");
 	printf("> 15. 保存系统信息文件\n");
+	printf("> 16. 输出全部诊疗记录\n");
 	printf("> 0. 返回欢迎界面\n");
 
 	scanf("%d", &decision);
 	decision = (int)decision;
-	while (decision < 0 || decision > 15)
+	while (decision < 0 || decision > 16)
 	{
 		printf("输入错误！请重试！\n");
 		fflush(stdin); //清空缓冲区
@@ -371,6 +372,10 @@ int operateMenu(int menuDecision)
 		writeout_medicine(ml);
 
 		break;
+	case 16:
+		printf("16. 输出全部诊疗记录\n");
+		print_all(rlp); //仅用于调试
+
 	default:
 		printf("debug:ERR: 传参错误\n");
 		break;

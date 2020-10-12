@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS  
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -49,10 +49,11 @@ int inputID(const char *title)
 // 医生上班
 int *inputWork()
 {
-	int work[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; //TODO: static问题，已删
+	int work[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //TODO: static问题，已删
 	int totalDays = 0;
 	// 设置总天数
-	do {
+	do
+	{
 		printf("请输入该医生一周上班总天数:\n");
 		scanf("%d", &totalDays);
 	} while (totalDays > 7 || totalDays < 1);
@@ -96,8 +97,16 @@ int inputPrice(int isPrint)
 	int valueAsFen = -1;
 	printf("请输入金额,（例如：12.34 元）\n");
 	scanf("%lf", &price);
-	valueAsFen = money_double_yjf(price, isPrint);
-	return valueAsFen;
+	fflush(stdin);
+	printf("输入的金额:%.2lf", price);
+	int isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0\n");
+	fflush(stdin);
+	if (isContinue == 1)
+	{
+		valueAsFen = money_double_yjf(price, isPrint);
+		return valueAsFen;
+	}
+	return 0;
 }
 
 // 输入数量
@@ -163,7 +172,7 @@ int money_double_yjf(double money, int isPrint)
 	// rawValue = 4354543.345678; // 1234.56
 	// printf("RAW: %f\n", rawValue);
 	Value1 = rawValue * 100; // 123456
-	yuan = (int)rawValue;    // 1234
+	yuan = (int)rawValue;	 // 1234
 
 	// 123456 - 123400 = 56
 	tempValue = yuan * 100;
