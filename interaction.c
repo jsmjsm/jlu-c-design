@@ -216,17 +216,18 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 struct live_hospital *inter_create_live_hospital()
 {
 	struct live_hospital *live;
-	int in_month;
-	int in_day;
-	int in_hour;
-	int in_minute;
-	int out_month;
-	int out_day;
-	int out_hour;
-	int out_minute;
+	int in_month = -1;
+	int in_day = -1;
+	int in_hour = -1;
+	int in_minute = -1;
+	int out_month = -1;
+	int out_day = -1;
+	int out_hour = -1;
+	int out_minute = -1;
 	int finalCheck = 0;
+	int isValid = 0;
 
-	while (finalCheck == 0)
+	while (finalCheck == 0 || isValid == 0)
 	{
 		// > in
 		// 月
@@ -240,7 +241,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &in_month);
 			fflush(stdin);
 		}
-
 		// 日
 		printf("请输入院的日期（day）:\n");
 		scanf("%d", &in_day);
@@ -252,7 +252,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &in_day);
 			fflush(stdin);
 		}
-
 		// 时
 		printf("请输入院的时间（24小时制）（hour）:\n");
 		scanf("%d", &in_hour);
@@ -264,7 +263,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &in_hour);
 			fflush(stdin);
 		}
-
 		// min
 		printf("请输入院的分钟（minute）:\n");
 		scanf("%d", &in_minute);
@@ -276,7 +274,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &in_minute);
 			fflush(stdin);
 		}
-
 		// > out
 		// 月
 		printf("请输出院的月份（month）:\n");
@@ -289,7 +286,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &out_month);
 			fflush(stdin);
 		}
-
 		// 日
 		printf("请输出院的日期（day）:\n");
 		scanf("%d", &out_day);
@@ -301,7 +297,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &out_day);
 			fflush(stdin);
 		}
-
 		// 时
 		printf("请输出院的时间（24小时制）（hour）:\n");
 		scanf("%d", &out_hour);
@@ -313,7 +308,6 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &out_hour);
 			fflush(stdin);
 		}
-
 		// min
 		printf("请输出院的分钟（minute）:\n");
 		scanf("%d", &out_minute);
@@ -325,13 +319,44 @@ struct live_hospital *inter_create_live_hospital()
 			scanf("%d", &out_minute);
 			fflush(stdin);
 		}
-
 		// final check
 		printf("入院时间: %d月 %d日 %d时 %d分 \n", in_month, in_day, in_hour, in_minute);
 		printf("出院时间: %d月 %d日 %d时 %d分 \n", out_month, out_day, out_hour, out_minute);
-
 		finalCheck = isNextInput("以上信息是否正确，正确请输入 1，重新输入信息请输入 0");
+		//TODO:日期合法性检查
 
+		if (out_month < in_month)
+		{
+			// isValid = 0;
+			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
+			continue;
+		}
+
+		if (out_month == in_month && out_day < in_day)
+		{
+			// isValid = 0;
+			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
+			continue;
+		}
+
+		if (out_month == in_month && out_day == in_day && out_hour < in_hour)
+		{
+			// isValid = 0;
+			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
+			continue;
+		}
+
+		if (out_month == in_month && out_day == in_day && out_hour == in_hour && out_minute < in_minute)
+		{
+			// isValid = 0;
+			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
+			continue;
+		}
+
+		// if (isValid == 0)
+		// {
+		// 	printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
+		// }
 		if (finalCheck == 1)
 		{
 			live = create_live_hospital(in_month, in_day, in_hour, in_minute, out_month, out_day, out_hour, out_minute);
@@ -769,6 +794,7 @@ int inter_print_one_patient(struct record_list *list)
 	age = inputAge();
 
 	// isContinue
+	printf("以下是病人: %s 的历史诊疗信息:\n\n", name);
 
 	while (isContinue == 1)
 	{
