@@ -31,13 +31,19 @@ struct patient inter_create_patient()
 
 // 交互设计: 保存医生信息, 返回一个医生结构体
 //此条重点修改
-struct doctor inter_create_doctor(struct doctor_list *d_list)
+struct doctor inter_create_doctor(struct doctor_list *d_list, struct doctor_list dl)
 {
 	struct doctor oneDoctor;
 	strcpy(oneDoctor.name, inputCharWithTitle("医生姓名"));
 	strcpy(oneDoctor.level, inputCharWithTitle("医生职称"));
 	strcpy(oneDoctor.department, inputCharWithTitle("医生科室"));
 	oneDoctor.worker_id = inputID("工号");
+	// ！工号判断
+	while (find_doctor(oneDoctor.worker_id, dl) != NULL)
+	{
+		printf("该工号已被占用，请输入其他工号\n");
+		oneDoctor.worker_id = inputID("工号");
+	}
 	// 一周上班多少天
 	int *p;
 	p = inputWork();
@@ -148,7 +154,7 @@ struct medicine_list *inter_create_medicine_list()
 struct medicine *inter_search_medicine(struct medicine_list *m_list)
 {
 	struct medicine *result;
-	char temp_name[20];
+	char temp_name[60];
 	strcpy(temp_name, inputCharWithTitle("欲查询的药物名称"));
 	result = search_medicine(m_list, temp_name);
 	if (result == NULL)
@@ -157,7 +163,7 @@ struct medicine *inter_search_medicine(struct medicine_list *m_list)
 	}
 	else
 	{
-		printf("查询成功，药物名称：%s\n", result->name);
+		printf("查询成功，药物名称：%s", result->name);
 	}
 	return result;
 }
@@ -350,7 +356,7 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	struct used_Medicine *temp_used_medicine;
 	struct live_hospital *temp_live_hospital;
 
-	printf("即将创建一条 treatment!\n");
+	//	printf("即将创建一条 treatment!\n");
 
 	// 交互创建
 	temp_body_check = inter_create_check();
@@ -375,7 +381,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 	int inputDoctorID = 0;
 	int worker_id;
 
-	printf("即将创建一条 redcord!\n");
+	//	printf("即将创建一条 redcord!\n");
 	temp_patient = inter_create_patient();
 	//
 	// find doctor
@@ -398,15 +404,6 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 			}
 		}
 	}
-
-	//
-	// worker_id = inputID("医生的工号\n");
-	// temp_doctor = find_doctor(worker_id, *d_list);
-	// while (temp_doctor == NULL)
-	// {
-	// 	worker_id = inputID("没有这个医生！请输入正确的医生工号\n");
-	// 	temp_doctor = find_doctor(worker_id, *d_list);
-	// }
 
 	temp_treatment = inter_create_treatment(m_list);
 	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);

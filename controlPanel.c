@@ -132,7 +132,7 @@ int spaceMenu()
 		fflush(stdin); //清空缓冲区
 		scanf("%d", &decision);
 	}
-	printf(">> debug: 决定:  %d\n", decision);
+	// printf(">> debug: 决定:  %d\n", decision);
 	return decision;
 }
 
@@ -299,7 +299,7 @@ int operateMenu(int menuDecision)
 			if (strlen(medicine_array[posi]) > 0) //判断是否当前record是否为最后一条
 				flag = 1;
 		}
-
+		printf("导入诊疗记录成功！\n");
 		break;
 	case 2:
 		printf("2. 录入一条诊疗记录\n");
@@ -342,7 +342,7 @@ int operateMenu(int menuDecision)
 		break;
 	case 11:
 		printf("11. 录入医生信息\n");
-		inter_create_doctor(dlp);
+		inter_create_doctor(dlp, dl);
 		break;
 
 	case 12:
@@ -370,12 +370,12 @@ int operateMenu(int menuDecision)
 
 		//***********************保存medicine***********************
 		writeout_medicine(ml);
-
+		printf("保存成功，路径：./txt/ \n");
 		break;
 	case 16:
 		printf("16. 输出全部诊疗记录\n");
 		print_all(rlp); //仅用于调试
-
+		break;
 	default:
 		printf("debug:ERR: 传参错误\n");
 		break;
