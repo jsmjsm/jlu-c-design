@@ -98,7 +98,7 @@ int inputPrice(int isPrint)
 	printf("请输入金额,（例如：12.34 元）\n");
 	scanf("%lf", &price);
 	fflush(stdin);
-	printf("输入的金额:%.2lf", price);
+	printf("输入的金额:%.2lf\n", price);
 	int isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0\n");
 	fflush(stdin);
 	if (isContinue == 1)

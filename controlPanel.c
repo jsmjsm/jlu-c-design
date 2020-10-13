@@ -185,8 +185,6 @@ int operateMenu(int menuDecision)
 		break;
 	case 1:
 		printf("1. 从文件导入诊疗记录\n");
-		/*TODO: 接口接入*/
-
 		//*************************record记录************************
 		readin_record(record_array);
 		flag = 1; //判断值
@@ -320,9 +318,6 @@ int operateMenu(int menuDecision)
 	case 6:
 		printf("6. 打印患者的历史诊疗信息\n");
 		inter_print_one_patient(rlp);
-
-		// printf("Debug: 当前全部病人:\n");
-		// print_all(rlp); //仅用于调试
 		break;
 	case 7:
 		printf("7. 统计医院目前营业额\n");
@@ -343,11 +338,13 @@ int operateMenu(int menuDecision)
 	case 11:
 		printf("11. 录入医生信息\n");
 		inter_create_doctor(dlp, dl);
+		printf("录入医生信息成功！\n");
 		break;
 
 	case 12:
 		printf("12. 录入药品信息\n");
 		inter_create_medicine(mlp);
+		printf("录入药品信息成功！\n");
 		break;
 
 	case 13:
@@ -364,10 +361,8 @@ int operateMenu(int menuDecision)
 		printf("15. 保存系统信息文件\n");
 		//***********************保存record***********************
 		writeout_record(rlp->head);
-
 		//***********************保存doctor***********************
 		writeout_doctor(dl);
-
 		//***********************保存medicine***********************
 		writeout_medicine(ml);
 		printf("保存成功，路径：./txt/ \n");
