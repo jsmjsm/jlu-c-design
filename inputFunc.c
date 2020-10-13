@@ -101,11 +101,21 @@ int inputPrice(int isPrint)
 	printf("输入的金额:%.2lf\n", price);
 	int isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0");
 	fflush(stdin);
+	while (isContinue == 0)
+	{
+		printf("请输入金额,（例如：12.34 元）\n");
+		scanf("%lf", &price);
+		fflush(stdin);
+		printf("输入的金额:%.2lf\n", price);
+		isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0");
+		fflush(stdin);
+	}
 	if (isContinue == 1)
 	{
 		valueAsFen = money_double_yjf(price, isPrint);
 		return valueAsFen;
 	}
+
 	return 0;
 }
 
