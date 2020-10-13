@@ -163,7 +163,7 @@ struct medicine *inter_search_medicine(struct medicine_list *m_list)
 	}
 	else
 	{
-		printf("查询成功，药物名称：%s", result->name);
+		printf("查询成功，药物名称：%s\n", result->name);
 	}
 	return result;
 }
@@ -188,6 +188,7 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 	// body
 	while (isNext == 1)
 	{
+		// search
 		temp_medicine = inter_search_medicine(m_list);
 
 		if (temp_medicine == NULL)
@@ -357,8 +358,11 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	//	printf("即将创建一条 treatment!\n");
 
 	// 交互创建
+	printf("开始记录检查项目...\n");
 	temp_body_check = inter_create_check();
+	printf("开始记录使用过的药物...\n");
 	temp_used_medicine = inter_create_used_medicine(m_list);
+	printf("开始记录住院信息...\n");
 	temp_live_hospital = inter_create_live_hospital();
 
 	//  创建医疗记录
@@ -388,7 +392,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 		temp_doctor = find_doctor(inputDoctorID, *d_list);
 		if (temp_doctor != NULL)
 		{
-			printf("查询成功，该医生存在，医生姓名：%s，医生ID：%d\n", temp_doctor->name, temp_doctor->worker_id);
+			printf("查询成功，该医生存在，医生姓名：%s，医生ID：%d 医生科室：%s\n", temp_doctor->name, temp_doctor->worker_id, temp_doctor->department);
 			isContinue = 0;
 		}
 		else
