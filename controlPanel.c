@@ -71,7 +71,10 @@ int spaceWelcome()
 	int isEnterMenu = 0;
 	printf("-----------------------------\n");
 	printf("    欢迎使用诊疗管理系统    \n");
-	printf("作者：201818xx-xxx\n");
+	printf("作者：20181826-潘湛艺\n");
+	printf("作者：20182220-董国浩\n");
+	printf("作者：17180530-李思源\n");
+
 	printf("-----------------------------\n");
 	printf("\n");
 

@@ -392,7 +392,7 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 
 	//  创建医疗记录
 	t = create_treatment(temp_body_check, temp_used_medicine, temp_live_hospital);
-	printf("treatment 创建成功!\n");
+	// printf("treatment 创建成功!\n");
 
 	return t;
 }
@@ -433,7 +433,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 
 	temp_treatment = inter_create_treatment(m_list);
 	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);
-	printf("record 创建成功!\n");
+	printf("诊疗记录创建成功!\n");
 	return 0;
 }
 

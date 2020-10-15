@@ -12,7 +12,7 @@ struct doctor *create_doctor(const char name[20], const char level[20], const ch
 
 struct doctor *find_doctor(int worker_id, struct doctor_list list); //根据工号搜寻医生
 
-void show_doctor_list(struct doctor_list *list); //根据工号搜寻医生
+void show_doctor_list(struct doctor_list *list);
 
 struct treatment create_treatment(struct body_Check *bc, struct used_Medicine *um, struct live_hospital *lh); //体检、用药、住院
 
