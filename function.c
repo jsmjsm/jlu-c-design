@@ -89,11 +89,11 @@ int printRecordDuringTime(struct record_list *list, int start_m, int start_d, in
 	temp = list->head;
 	if (temp != NULL)
 	{
-		int time = temp->pa.register_id / 1000;
 		int start_time = start_m * 100 + start_d;
 		int end_time = end_m * 100 + end_d;
 		while (temp != NULL)
 		{
+			int time = temp->pa.register_id / 1000;
 			if (start_time <= time && end_time >= time)
 			{
 				print_record(temp);
@@ -103,6 +103,27 @@ int printRecordDuringTime(struct record_list *list, int start_m, int start_d, in
 	}
 	return 1;
 }
+
+// int printRecordDuringTime(struct record_list *list, int start_m, int start_d, int end_m, int end_d)
+// {
+// 	struct record *temp;
+// 	temp = list->head;
+// 	if (temp != NULL)
+// 	{
+// 		int time = temp->pa.register_id / 1000;
+// 		int start_time = start_m * 100 + start_d;
+// 		int end_time = end_m * 100 + end_d;
+// 		while (temp != NULL)
+// 		{
+// 			if (start_time <= time && end_time >= time)
+// 			{
+// 				print_record(temp);
+// 			}
+// 			temp = temp->next;
+// 		}
+// 	}
+// 	return 1;
+// }
 
 int calcDoctorBusy(struct record_list *r_list, struct doctor_list d_list)
 {
