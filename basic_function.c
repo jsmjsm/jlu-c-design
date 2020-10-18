@@ -62,7 +62,7 @@ struct doctor *find_doctor(int worker_id, struct doctor_list list)
 }
 
 void show_doctor_list(struct doctor_list *list)
-{
+{ 
 	struct doctor *temp;
 	temp = list->head;
 	int i = 1;
@@ -74,10 +74,8 @@ void show_doctor_list(struct doctor_list *list)
 		printf("科室：%s     ", temp->department);
 		printf("工号：%d\n", temp->worker_id);
 		printf("该医生在周");
-		for (int j = 1; j < 8; j++)
-		{
-			if (temp->visit[j] == 1)
-			{
+		for (int j = 1; j < 8; j++) {
+			if (temp->visit[j] == 1) {
 				printf("%d ", j);
 			}
 		}
@@ -322,8 +320,7 @@ void print_record(struct record *temp)
 	printf("检查总价格：%.2f元\n", temp->tm.check_total_price * 1.0 / 100);
 	j = 1;
 	temp_m = temp->tm.um;
-	if (temp_m->use_m->name != NULL)
-	{
+	if (temp_m->use_m->name != NULL) {
 		printf("药品种类数：%d\n", temp->tm.medicine_num);
 		while (temp_m != NULL)
 		{

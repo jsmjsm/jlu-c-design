@@ -21,11 +21,12 @@ char *inputCharWithTitle(const char *title)
 int inputAge()
 {
 	int age = 0;
+	char c;
 	printf("请输入年龄\n");
 	scanf("%d", &age);
 	fflush(stdin);
 	// 年龄检查
-	while (age < 1 || age > 150)
+	while (c = getchar() != '\n' || age < 1 || age > 120)
 	{
 		printf("输入有误，请重试\n");
 		scanf("%d", &age);
@@ -49,14 +50,16 @@ int inputID(const char *title)
 // 医生上班
 int *inputWork()
 {
-	int work[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //TODO: static问题，已删
+	int work[8] = { 0, 0, 0, 0, 0, 0, 0, 0 }; //TODO: static问题，已删
 	int totalDays = 0;
+	char c;
 	// 设置总天数
 	do
 	{
 		printf("请输入该医生一周上班总天数:\n");
 		scanf("%d", &totalDays);
-	} while (totalDays > 7 || totalDays < 1);
+	} while (c = getchar() != '\n' || totalDays > 7 || totalDays < 1);
+	printf("医生一周上班%d天\n");
 	work[0] = totalDays;
 	fflush(stdin);
 	// 哪一天上班
@@ -69,7 +72,7 @@ int *inputWork()
 
 		// 检查异常
 		fflush(stdin);
-		while (tempWork >= 8 || tempWork < 1 || work[tempWork] == 1)
+		while (c = getchar() != '\n' || tempWork >= 8 || tempWork < 1 || work[tempWork] == 1)
 		{
 			printf("输入有误，请重试\n");
 			scanf("%d", &tempWork);
@@ -92,30 +95,27 @@ int *inputWork()
 // 输入价钱
 int inputPrice(int isPrint)
 {
-
-	double price = 0;
-	int valueAsFen = -1;
-	printf("请输入金额,（例如：12.34 元）\n");
-	scanf("%lf", &price);
-	fflush(stdin);
-	printf("输入的金额:%.2lf\n", price);
-	int isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0");
-	fflush(stdin);
-	while (isContinue == 0)
-	{
+	int isContinue = 0;
+	while (isContinue != 1) {
+		double price = 0;
+		int valueAsFen = -1;
 		printf("请输入金额,（例如：12.34 元）\n");
 		scanf("%lf", &price);
+		char c;
+		while (c = getchar() != '\n' || price <= 0 || price > 100000) {
+			printf("请重新输入\n");
+			scanf("%lf", &price);
+		}
 		fflush(stdin);
-		printf("输入的金额:%.2lf\n", price);
-		isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0");
+		printf("输入的金额:%.2lf", price);
+		isContinue = isNextInput("输入的金额是否无误，确认请输入 1，重新输入请输入 0\n");
 		fflush(stdin);
+		if (isContinue == 1)
+		{
+			valueAsFen = money_double_yjf(price, isPrint);
+			return valueAsFen;
+		}
 	}
-	if (isContinue == 1)
-	{
-		valueAsFen = money_double_yjf(price, isPrint);
-		return valueAsFen;
-	}
-
 	return 0;
 }
 
@@ -123,8 +123,13 @@ int inputPrice(int isPrint)
 int inputAmount()
 {
 	int amount = 0;
+	char c;
 	printf("请输入数量\n");
 	scanf("%d", &amount);
+	while (c = getchar() != '\n' || amount <= 0) {
+		printf("请重新输入\n");
+		scanf("%d", &amount);
+	}
 	fflush(stdin);
 	printf("输入成功，数量: %d\n", amount);
 	return amount;
@@ -145,6 +150,10 @@ int isNextInput(const char *title)
 	{
 		int decision = -1;
 		scanf("%d", &decision);
+		char c;
+		while (c = getchar() != '\n') {
+			printf("请重新输入\n");
+		}
 		fflush(stdin);
 		switch (decision)
 		{

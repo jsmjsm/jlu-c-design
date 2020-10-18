@@ -6,6 +6,16 @@
 #include "basic_function.h"
 #include "function.h"
 
+int Check_date(int w_month, int w_date)
+{
+	char Month_buf[12] = { 31,29,31,30,31,30,31,31,30,31,30,31 };               //月份修正表
+
+	if (w_month > 12 || w_month<1 || w_date>Month_buf[w_month - 1] || w_date < 1)           //判断月份日期是否合法
+		return 0;
+
+	return 1;
+}
+
 // 交互设计: 保存药品信息（新加）
 struct medicine inter_create_medicine(struct medicine_list *m_list)
 {
@@ -31,19 +41,17 @@ struct patient inter_create_patient()
 
 // 交互设计: 保存医生信息, 返回一个医生结构体
 //此条重点修改
-struct doctor inter_create_doctor(struct doctor_list *d_list, struct doctor_list dl)
+struct doctor inter_create_doctor(struct doctor_list *d_list)
 {
 	struct doctor oneDoctor;
 	strcpy(oneDoctor.name, inputCharWithTitle("医生姓名"));
 	strcpy(oneDoctor.level, inputCharWithTitle("医生职称"));
+	while (!(strcmp(oneDoctor.level, "主任医师") == 0 || strcmp(oneDoctor.level, "副主任医师") == 0 || strcmp(oneDoctor.level, "主治医师") == 0 || strcmp(oneDoctor.level, "住院医师") == 0)) {
+		printf("请重新输入\n");
+		strcpy(oneDoctor.level, inputCharWithTitle("医生职称"));
+	}
 	strcpy(oneDoctor.department, inputCharWithTitle("医生科室"));
 	oneDoctor.worker_id = inputID("工号");
-	// ！工号判断
-	while (find_doctor(oneDoctor.worker_id, dl) != NULL)
-	{
-		printf("该工号已被占用，请输入其他工号\n");
-		oneDoctor.worker_id = inputID("工号");
-	}
 	// 一周上班多少天
 	int *p;
 	p = inputWork();
@@ -154,7 +162,7 @@ struct medicine_list *inter_create_medicine_list()
 struct medicine *inter_search_medicine(struct medicine_list *m_list)
 {
 	struct medicine *result;
-	char temp_name[60];
+	char temp_name[20];
 	strcpy(temp_name, inputCharWithTitle("欲查询的药物名称"));
 	result = search_medicine(m_list, temp_name);
 	if (result == NULL)
@@ -188,7 +196,6 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 	// body
 	while (isNext == 1)
 	{
-		// search
 		temp_medicine = inter_search_medicine(m_list);
 
 		if (temp_medicine == NULL)
@@ -213,21 +220,22 @@ struct used_Medicine *inter_create_used_medicine(struct medicine_list *m_list)
 }
 
 // 交互设计：住院记录
+// TODO: 未测试可行性
 struct live_hospital *inter_create_live_hospital()
 {
 	struct live_hospital *live;
-	int in_month = -1;
-	int in_day = -1;
-	int in_hour = -1;
-	int in_minute = -1;
-	int out_month = -1;
-	int out_day = -1;
-	int out_hour = -1;
-	int out_minute = -1;
+	int in_month;
+	int in_day;
+	int in_hour;
+	int in_minute;
+	int out_month;
+	int out_day;
+	int out_hour;
+	int out_minute;
 	int finalCheck = 0;
-	int isValid = 0;
+	char c;
 
-	while (finalCheck == 0 || isValid == 0)
+	while (finalCheck == 0)
 	{
 		// > in
 		// 月
@@ -235,128 +243,104 @@ struct live_hospital *inter_create_live_hospital()
 		scanf("%d", &in_month);
 		fflush(stdin);
 		in_month = (int)in_month;
-		while (in_month > 12 || in_month < 1)
+		while (c = getchar() != '\n' || in_month > 12 || in_month < 1)
 		{
 			printf("月份输入错误！请重试！\n");
 			scanf("%d", &in_month);
 			fflush(stdin);
 		}
+
 		// 日
 		printf("请输入院的日期（day）:\n");
 		scanf("%d", &in_day);
 		fflush(stdin);
 		in_day = (int)in_day;
-		while (in_day > 31 || in_day < 1)
+		while (c = getchar() != '\n' || in_day > 31 || in_day < 1 || !Check_date(in_month, in_day))
 		{
 			printf("日期输入错误！请重试！\n");
 			scanf("%d", &in_day);
 			fflush(stdin);
 		}
+
 		// 时
 		printf("请输入院的时间（24小时制）（hour）:\n");
 		scanf("%d", &in_hour);
 		fflush(stdin);
 		in_hour = (int)in_hour;
-		while (in_hour > 31 || in_hour < 0)
+		while (c = getchar() != '\n' || in_hour > 23 || in_hour < 0)
 		{
 			printf("时间输入错误！请重试！\n");
 			scanf("%d", &in_hour);
 			fflush(stdin);
 		}
+
 		// min
 		printf("请输入院的分钟（minute）:\n");
 		scanf("%d", &in_minute);
 		fflush(stdin);
 		in_minute = (int)in_minute;
-		while (in_minute > 60 || in_minute < 0)
+		while (c = getchar() != '\n' || in_minute > 59 || in_minute < 0)
 		{
 			printf("分钟输入错误！请重试！\n");
 			scanf("%d", &in_minute);
 			fflush(stdin);
 		}
+
 		// > out
 		// 月
 		printf("请输出院的月份（month）:\n");
 		scanf("%d", &out_month);
 		fflush(stdin);
 		out_month = (int)out_month;
-		while (out_month > 12 || out_month < 1)
+		while (c = getchar() != '\n' || out_month > 12 || out_month < 1)
 		{
 			printf("月份输入错误！请重试！\n");
 			scanf("%d", &out_month);
 			fflush(stdin);
 		}
+
 		// 日
 		printf("请输出院的日期（day）:\n");
 		scanf("%d", &out_day);
 		fflush(stdin);
 		out_day = (int)out_day;
-		while (out_day > 31 || out_day < 1)
+		while (c = getchar() != '\n' || out_day > 31 || out_day < 1 || !Check_date(out_month, out_day))
 		{
 			printf("日期输入错误！请重试！\n");
 			scanf("%d", &out_day);
 			fflush(stdin);
 		}
+
 		// 时
 		printf("请输出院的时间（24小时制）（hour）:\n");
 		scanf("%d", &out_hour);
 		fflush(stdin);
 		out_hour = (int)out_hour;
-		while (out_hour > 31 || out_hour < 0)
+		while (c = getchar() != '\n' || out_hour > 23 || out_hour < 0)
 		{
 			printf("时间输入错误！请重试！\n");
 			scanf("%d", &out_hour);
 			fflush(stdin);
 		}
+
 		// min
 		printf("请输出院的分钟（minute）:\n");
 		scanf("%d", &out_minute);
 		fflush(stdin);
 		out_minute = (int)out_minute;
-		while (out_minute > 60 || out_minute < 0)
+		while (c = getchar() != '\n' || out_minute > 59 || out_minute < 0)
 		{
 			printf("分钟输入错误！请重试！\n");
 			scanf("%d", &out_minute);
 			fflush(stdin);
 		}
+
 		// final check
 		printf("入院时间: %d月 %d日 %d时 %d分 \n", in_month, in_day, in_hour, in_minute);
 		printf("出院时间: %d月 %d日 %d时 %d分 \n", out_month, out_day, out_hour, out_minute);
+
 		finalCheck = isNextInput("以上信息是否正确，正确请输入 1，重新输入信息请输入 0");
-		//TODO:日期合法性检查
 
-		if (out_month < in_month)
-		{
-			// isValid = 0;
-			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
-			continue;
-		}
-
-		if (out_month == in_month && out_day < in_day)
-		{
-			// isValid = 0;
-			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
-			continue;
-		}
-
-		if (out_month == in_month && out_day == in_day && out_hour < in_hour)
-		{
-			// isValid = 0;
-			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
-			continue;
-		}
-
-		if (out_month == in_month && out_day == in_day && out_hour == in_hour && out_minute < in_minute)
-		{
-			// isValid = 0;
-			printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
-			continue;
-		}
-
-		// if (isValid == 0)
-		// {
-		// 	printf("输入住院信息有错误，出院时间必须晚于入院时间！\n");
-		// }
 		if (finalCheck == 1)
 		{
 			live = create_live_hospital(in_month, in_day, in_hour, in_minute, out_month, out_day, out_hour, out_minute);
@@ -372,6 +356,7 @@ struct live_hospital *inter_create_live_hospital()
 }
 
 // 交互设计: 诊疗记录 组装起来 需要一个药物列表
+// TODO: 未测试可行性
 struct treatment inter_create_treatment(struct medicine_list *m_list)
 {
 	struct treatment t;
@@ -380,24 +365,22 @@ struct treatment inter_create_treatment(struct medicine_list *m_list)
 	struct used_Medicine *temp_used_medicine;
 	struct live_hospital *temp_live_hospital;
 
-	//	printf("即将创建一条 treatment!\n");
+	printf("即将创建一条 treatment!\n");
 
 	// 交互创建
-	printf("开始记录检查项目...\n");
 	temp_body_check = inter_create_check();
-	printf("开始记录使用过的药物...\n");
 	temp_used_medicine = inter_create_used_medicine(m_list);
-	printf("开始记录住院信息...\n");
 	temp_live_hospital = inter_create_live_hospital();
 
 	//  创建医疗记录
 	t = create_treatment(temp_body_check, temp_used_medicine, temp_live_hospital);
-	// printf("treatment 创建成功!\n");
+	printf("treatment 创建成功!\n");
 
 	return t;
 }
 
 // 交互设计：添加一条记录
+// TODO: 未测试可行性
 int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_list, struct doctor_list *d_list)
 {
 	struct patient temp_patient;
@@ -407,7 +390,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 	int inputDoctorID = 0;
 	int worker_id;
 
-	//	printf("即将创建一条 redcord!\n");
+	printf("即将创建一条 redcord!\n");
 	temp_patient = inter_create_patient();
 	//
 	// find doctor
@@ -417,7 +400,7 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 		temp_doctor = find_doctor(inputDoctorID, *d_list);
 		if (temp_doctor != NULL)
 		{
-			printf("查询成功，该医生存在，医生姓名：%s，医生ID：%d 医生科室：%s\n", temp_doctor->name, temp_doctor->worker_id, temp_doctor->department);
+			printf("查询成功，该医生存在，医生姓名：%s，医生ID：%d\n", temp_doctor->name, temp_doctor->worker_id);
 			isContinue = 0;
 		}
 		else
@@ -431,9 +414,18 @@ int inter_add_one_record(struct record_list *r_list, struct medicine_list *m_lis
 		}
 	}
 
+	//
+	// worker_id = inputID("医生的工号\n");
+	// temp_doctor = find_doctor(worker_id, *d_list);
+	// while (temp_doctor == NULL)
+	// {
+	// 	worker_id = inputID("没有这个医生！请输入正确的医生工号\n");
+	// 	temp_doctor = find_doctor(worker_id, *d_list);
+	// }
+
 	temp_treatment = inter_create_treatment(m_list);
 	addOneRecord(r_list, temp_patient, temp_doctor, temp_treatment);
-	printf("诊疗记录创建成功!\n");
+	printf("record 创建成功!\n");
 	return 0;
 }
 
@@ -462,13 +454,18 @@ int inter_delete_one_record(struct record_list *list)
 
 	if (isIDValid == 1)
 	{
-		if (deleteOneRecord(list, inputRegisterID) == 1)
-		{
-			printf("挂号为 %d 诊疗记录删除成功\n", inputRegisterID);
+		int temp;
+		char c;
+		temp = isNextInput("您确定要删除这条记录吗？确定请输入 1 ， 否则输入 0\n");
+		if (temp == 1 && (c = getchar()) != '\n') {
+			if (deleteOneRecord(list, inputRegisterID) == 1)
+			{
+				printf("挂号为 %d 诊疗记录删除成功\n", inputRegisterID);
+			}
 		}
 		else
 		{
-			printf("ERROR in inter_delete_one_record() \n");
+			printf("未删除记录 \n");
 		}
 	}
 	else
@@ -501,24 +498,33 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 		}
 	}
 
+	//print_record()
+
 	// 创建
+	if (isIDValid == 1) {
+		int temp;
+		char c;
+		temp = isNextInput("您确定要修改这条记录吗？确定请输入 1 ， 否则输入 0\n");
+		if (temp == 1 && (c = getchar()) != '\n') {
+			int worker_id;
+			struct patient pa = inter_create_patient();
+			worker_id = inputID("医生的工号");
+			struct doctor *doc = find_doctor(worker_id, *d_list);
+			struct treatment tm = inter_create_treatment(m_list);
 
-	if (isIDValid == 1)
-	{
-		int worker_id;
-		struct patient pa = inter_create_patient();
-		worker_id = inputID("医生的工号");
-		struct doctor *doc = find_doctor(worker_id, *d_list);
-		struct treatment tm = inter_create_treatment(m_list);
-
-		// 接入 function
-		if (modifyOneRecord(list, pa, doc, tm, inputRegisterID) == 1)
-		{
-			printf("修改诊疗记录成功！\n");
+				// 接入 function
+			if (modifyOneRecord(list, pa, doc, tm, inputRegisterID) == 1)
+			{
+				printf("修改诊疗记录成功！\n");
+			}
+			else
+			{
+				printf("修改诊疗记录出错 inter_modify_one_record()\n");
+			}
 		}
 		else
 		{
-			printf("修改诊疗记录出错 inter_modify_one_record()\n");
+			printf("放弃修改一条诊疗记录 \n");
 		}
 	}
 	else
@@ -531,19 +537,21 @@ int inter_modify_one_record(struct record_list *list, struct medicine_list *m_li
 }
 
 // 交互设计：输出某时间段的诊疗信息
+// TODO:BUG
 int inter_print_record_during_time(struct record_list *list)
 {
 	int in_month;
 	int in_day;
 	int out_month;
 	int out_day;
+	char c;
 	// > in
 	// 月
 	printf("请输入诊疗信息开始的月份（month）:\n");
 	scanf("%d", &in_month);
 	fflush(stdin);
 	in_month = (int)in_month;
-	while (in_month > 12 || in_month < 1)
+	while (c = getchar() != '\n' || in_month > 12 || in_month < 1)
 	{
 		printf("月份输入错误！请重试！\n");
 		scanf("%d", &in_month);
@@ -555,7 +563,7 @@ int inter_print_record_during_time(struct record_list *list)
 	scanf("%d", &in_day);
 	fflush(stdin);
 	in_day = (int)in_day;
-	while (in_day > 31 || in_day < 1)
+	while (c = getchar() != '\n' || in_day > 31 || in_day < 1 || !Check_date(in_month, in_day))
 	{
 		printf("日期输入错误！请重试！\n");
 		scanf("%d", &in_day);
@@ -568,7 +576,7 @@ int inter_print_record_during_time(struct record_list *list)
 	scanf("%d", &out_month);
 	fflush(stdin);
 	out_month = (int)out_month;
-	while (out_month > 12 || out_month < 1)
+	while (c = getchar() != '\n' || out_month > 12 || out_month < 1)
 	{
 		printf("月份输入错误！请重试！\n");
 		scanf("%d", &out_month);
@@ -580,7 +588,7 @@ int inter_print_record_during_time(struct record_list *list)
 	scanf("%d", &out_day);
 	fflush(stdin);
 	out_day = (int)out_day;
-	while (out_day > 31 || out_day < 1)
+	while (c = getchar() != '\n' || out_day > 31 || out_day < 1 || !Check_date(out_month, out_day))
 	{
 		printf("日期输入错误！请重试！\n");
 		scanf("%d", &out_day);
@@ -609,13 +617,14 @@ int inter_create_live_in_hospital(struct record_list *list)
 	int in_day;
 	int in_hour;
 	int in_minute;
+	char c;
 	// > in
 	// 月
 	printf("请输入当前月份（month）:\n");
 	scanf("%d", &in_month);
 	fflush(stdin);
 	in_month = (int)in_month;
-	while (in_month > 12 || in_month < 1)
+	while (c = getchar() != '\n' || in_month > 12 || in_month < 1)
 	{
 		printf("月份输入错误！请重试！\n");
 		scanf("%d", &in_month);
@@ -627,7 +636,7 @@ int inter_create_live_in_hospital(struct record_list *list)
 	scanf("%d", &in_day);
 	fflush(stdin);
 	in_day = (int)in_day;
-	while (in_day > 31 || in_day < 1)
+	while (c = getchar() != '\n' || in_day > 31 || in_day < 1 || !Check_date(in_month, in_day))
 	{
 		printf("日期输入错误！请重试！\n");
 		scanf("%d", &in_day);
@@ -639,7 +648,7 @@ int inter_create_live_in_hospital(struct record_list *list)
 	scanf("%d", &in_hour);
 	fflush(stdin);
 	in_hour = (int)in_hour;
-	while (in_hour > 31 || in_hour < 0)
+	while (c = getchar() != '\n' || in_hour > 23 || in_hour < 0)
 	{
 		printf("时间输入错误！请重试！\n");
 		scanf("%d", &in_hour);
@@ -651,14 +660,14 @@ int inter_create_live_in_hospital(struct record_list *list)
 	scanf("%d", &in_minute);
 	fflush(stdin);
 	in_minute = (int)in_minute;
-	while (in_minute > 60 || in_minute < 0)
+	while (c = getchar() != '\n' || in_minute > 59 || in_minute < 0)
 	{
 		printf("分钟输入错误！请重试！\n");
 		scanf("%d", &in_minute);
 		fflush(stdin);
 	}
 
-	struct time now = {in_month, in_day, in_hour, in_minute};
+	struct time now = { in_month, in_day, in_hour, in_minute };
 
 	if (createLiveInHospital(list, now) == 1)
 	{
@@ -681,13 +690,14 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	int in_day;
 	int in_hour;
 	int in_minute;
+	char c;
 	// > Time
 	// 月
 	printf("请输入当前月份（month）:\n");
 	scanf("%d", &in_month);
 	fflush(stdin);
 	in_month = (int)in_month;
-	while (in_month > 12 || in_month < 1)
+	while (c = getchar() != '\n' || in_month > 12 || in_month < 1)
 	{
 		printf("月份输入错误！请重试！\n");
 		scanf("%d", &in_month);
@@ -699,7 +709,7 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	scanf("%d", &in_day);
 	fflush(stdin);
 	in_day = (int)in_day;
-	while (in_day > 31 || in_day < 1)
+	while (c = getchar() != '\n' || in_day > 31 || in_day < 1 || !Check_date(in_month, in_day))
 	{
 		printf("日期输入错误！请重试！\n");
 		scanf("%d", &in_day);
@@ -711,7 +721,7 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	scanf("%d", &in_hour);
 	fflush(stdin);
 	in_hour = (int)in_hour;
-	while (in_hour > 31 || in_hour < 0)
+	while (c = getchar() != '\n' || in_hour > 23 || in_hour < 0)
 	{
 		printf("时间输入错误！请重试！\n");
 		scanf("%d", &in_hour);
@@ -723,13 +733,13 @@ int inter_calc_hospital_current_turnover(struct record_list *list)
 	scanf("%d", &in_minute);
 	fflush(stdin);
 	in_minute = (int)in_minute;
-	while (in_minute > 60 || in_minute < 0)
+	while (c = getchar() != '\n' || in_minute > 59 || in_minute < 0)
 	{
 		printf("分钟输入错误！请重试！\n");
 		scanf("%d", &in_minute);
 		fflush(stdin);
 	}
-	struct time now = {in_month, in_day, in_hour, in_minute};
+	struct time now = { in_month, in_day, in_hour, in_minute };
 
 	totalTurnover = calcCurrentTurnover(list, now);
 
@@ -794,7 +804,6 @@ int inter_print_one_patient(struct record_list *list)
 	age = inputAge();
 
 	// isContinue
-	printf("以下是病人: %s 的历史诊疗信息:\n\n", name);
 
 	while (isContinue == 1)
 	{
