@@ -21,6 +21,7 @@ struct doctor_list *useless_dlp = &useless_dl;
 //定义记录medicine的链表
 struct medicine_list ml = {NULL};
 struct medicine_list *mlp = &ml;
+int isLoadData = 0;
 
 void mainControl() // 主界面
 {
@@ -187,6 +188,12 @@ int operateMenu(int menuDecision)
 		fflush(stdin); // 清空缓冲区
 		break;
 	case 1:
+		if (isLoadData == 1)
+		{
+			printf("记录已经导入，无须重复导入\n");
+			break;
+		}
+
 		printf("1. 从文件导入诊疗记录\n");
 		//*************************record记录************************
 		readin_record(record_array);
@@ -301,6 +308,7 @@ int operateMenu(int menuDecision)
 				flag = 1;
 		}
 		printf("导入诊疗记录成功！\n");
+		isLoadData = 1;
 		break;
 	case 2:
 		printf("2. 录入一条诊疗记录\n");
